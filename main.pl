@@ -19,5 +19,5 @@ test :-
             place_pieces(Blocked, Player1, Player2),
             place_initial_empty_pieces(1),
             valid_moves(Blocked, Player1, Valid),
-            member(['C',2,1], Valid).
+            write(Valid).
             

@@ -9,9 +9,11 @@ unpack_list([H | T], Dest, Ret, Acc) :-
 
 
 valid_piece_up(_,_,_,2, Moves, Moves).
+valid_piece_up(_,_,'K',1, Moves, Moves).
+valid_piece_up(_,_,'Q',1, Moves, Moves).
 valid_piece_up(_,8,_,_, Moves, Moves).
 valid_piece_up(X, Y, P, C, Moves, Acc) :-
-            C < 2,
+            (C < 2 ; (P \== 'K', C \== 1) ; (P \== 'Q', C \== 1)) ,
             piece(T, X, Y),
             (
                 T == ' ' ->
@@ -28,9 +30,11 @@ valid_piece_up(X, Y, P, C, Moves, Acc) :-
             ).
 
 valid_piece_down(_,_,_,2, Moves, Moves).
+valid_piece_down(_,_,'K',1, Moves, Moves).
+valid_piece_down(_,_,'Q',1, Moves, Moves).
 valid_piece_down(_,0,_,_, Moves, Moves).
 valid_piece_down(X, Y, P, C, Moves, Acc):-
-            C < 2,
+           (C < 2 ; (P \== 'K', C \== 1) ; (P \== 'Q', C \== 1)),
             piece(T, X, Y),
             (
                 T == ' ' ->
@@ -47,9 +51,11 @@ valid_piece_down(X, Y, P, C, Moves, Acc):-
             ).
 
 valid_piece_left(_,_,_,2, Moves, Moves).
+valid_piece_left(_,_,'K',1, Moves, Moves).
+valid_piece_left(_,_,'Q',1, Moves, Moves).
 valid_piece_left(0,_,_,_, Moves, Moves).
 valid_piece_left(X, Y, P, C, Moves, Acc) :-
-            C < 2,
+            (C < 2 ; (P \== 'K', C \== 1) ; (P \== 'Q', C \== 1)),
             piece(T, X, Y),
             (
                 T == ' ' ->
@@ -66,9 +72,11 @@ valid_piece_left(X, Y, P, C, Moves, Acc) :-
             ).
 
 valid_piece_right(_,_,_,2, Moves, Moves).
+valid_piece_right(_,_,'K',1, Moves, Moves).
+valid_piece_right(_,_,'Q',1, Moves, Moves).
 valid_piece_right(8,_,_,_, Moves, Moves).
 valid_piece_right(X, Y, P, C, Moves, Acc) :-
-            C < 2,
+            (C < 2 ; (P \== 'K', C \== 1) ; (P \== 'Q', C \== 1)),
             piece(T, X, Y),
             (
                 T == ' ' ->
@@ -85,10 +93,12 @@ valid_piece_right(X, Y, P, C, Moves, Acc) :-
             ).
 
 valid_piece_upleft(_,_,_,2, Moves, Moves).
+valid_piece_upleft(_,_,'K',1, Moves, Moves).
+valid_piece_upleft(_,_,'Q',1, Moves, Moves).
 valid_piece_upleft(0,_,_,_, Moves, Moves).
 valid_piece_upleft(_, 8,_,_, Moves, Moves).
 valid_piece_upleft(X, Y, P, C, Moves, Acc) :-
-            C < 2,
+            (C < 2 ; (P \== 'K', C \== 1) ; (P \== 'Q', C \== 1)),
             piece(T, X, Y),
             (
                 T == ' ' ->
@@ -107,10 +117,12 @@ valid_piece_upleft(X, Y, P, C, Moves, Acc) :-
             ).
 
 valid_piece_upright(_,_,_,2, Moves, Moves).
+valid_piece_upright(_,_,'K',1, Moves, Moves).
+valid_piece_upright(_,_,'Q',1, Moves, Moves).
 valid_piece_upright(8,_,_,_, Moves, Moves).
 valid_piece_upright(_,8,_,_, Moves, Moves).
 valid_piece_upright(X, Y, P, C, Moves, Acc) :-
-            C < 2,
+            (C < 2 ; (P \== 'K', C \== 1) ; (P \== 'Q', C \== 1)),
             piece(T, X, Y),
             (
                 T == ' ' ->
@@ -129,10 +141,12 @@ valid_piece_upright(X, Y, P, C, Moves, Acc) :-
             ).
 
 valid_piece_downleft(_,_,_,2, Moves, Moves).
+valid_piece_downleft(_,_,'K',1, Moves, Moves).
+valid_piece_downleft(_,_,'Q',1, Moves, Moves).
 valid_piece_downleft(0,_,_,_, Moves, Moves).
 valid_piece_downleft(_,0,_,_, Moves, Moves).
 valid_piece_downleft(X, Y, P, C, Moves, Acc) :-
-            C < 2,
+            (C < 2 ; (P \== 'K', C \== 1) ; (P \== 'Q', C \== 1)),
             piece(T, X, Y),
             (
                 T == ' ' ->
@@ -151,10 +165,12 @@ valid_piece_downleft(X, Y, P, C, Moves, Acc) :-
             ).
 
 valid_piece_downright(_,_,_,2, Moves, Moves).
+valid_piece_downright(_,_,'K',1, Moves, Moves).
+valid_piece_downright(_,_,'Q',1, Moves, Moves).
 valid_piece_downright(8,_,_,_, Moves, Moves).
 valid_piece_downright(_,0,_,_, Moves, Moves).
 valid_piece_downright(X, Y, P, C, Moves, Acc) :-
-            C < 2,
+            (C < 2 ; (P \== 'K', C \== 1) ; (P \== 'Q', C \== 1)),
             piece(T, X, Y),
             (
                 T == ' ' ->
