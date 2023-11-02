@@ -7,6 +7,13 @@ unpack_list([H | T], Dest, Ret, Acc) :-
             Dest1 = .(H, Acc),
             unpack_list(T, Dest, Ret, Dest1).
 
+in_check(T, X, Y, Opp_Moves) :-
+        (
+            T == 'K' ->
+            (member(['C', X, Y], Opp_Moves) ; member(['Q', X, Y], Opp_Moves) ; member(['B', X, Y], Opp_Moves))
+            ;
+            (member(['T', X, Y], Opp_Moves) ; member(['K', X, Y], Opp_Moves) ; member(['P', X, Y], Opp_Moves))
+        ).
 
 valid_piece_up(_,_,_,2, Moves, Moves).
 valid_piece_up(_,_,'K',1, Moves, Moves).
