@@ -202,7 +202,6 @@ valid_piece_moves([T, X, Y], Opp_Moves, Acc) :-
             X1 is X - 1,
             X2 is X + 1,
             valid_piece_up(X, Y1, T, 0, Up, Opp_Moves, []),
-            valid_piece_up(X, Y1, T, 0, Up, Opp_Moves, []),
             valid_piece_down(X, Y2, T, 0, Down, Opp_Moves, []),
             valid_piece_left(X1, Y, T, 0, Left, Opp_Moves, []),
             valid_piece_right(X2, Y, T, 0, Right, Opp_Moves, []),

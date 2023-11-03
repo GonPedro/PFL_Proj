@@ -88,7 +88,7 @@ place_pieces(Blocked, Player1, Player2) :-
             place_player_pieces(Player1),
             place_player_pieces(Player2).
 
-place_initial_empty_pieces(_) :-
+place_initial_empty_pieces :-
     assert(piece(' ', 2, 1)),
     assert(piece(' ', 3, 1)),
     assert(piece(' ', 4, 1)),
@@ -129,9 +129,28 @@ place_initial_empty_pieces(_) :-
     assert(piece(' ', 5, 7)),
     assert(piece(' ', 6, 7)).
     
+
+update_board_row(Y, X, Row) :- update_board_row(Y, X, Row, []).
+update_board_row(_, 0, Row, Row).
+update_board_row(Y, X, Row, Acc):-
+            piece(T, X, Y),
+            Acc1 = .(T, Acc),
+            X1 is X - 1,
+            update_board_row(Y, X1, Row, Acc1).
+
+update_board(Board, Y) :- update_board(Board, Y, []).
+update_board(Board, 8, Board).
+update_board(Board, Y, Acc) :- 
+            Y < 8,
+            update_board_row(Y, 7, Row),
+            Acc1 = .(Row, Acc),
+            Y1 is Y + 1,
+            update_board(Board, Y1, Acc1).
             
 make_board(Lenght, Char, Board) :- make_board(Lenght, 'X', Board, []).
 make_board(0, _, Board, Board).
 make_board(Lenght, Char, Board, Sub) :- Lenght > 0, Lenght1 is Lenght - 1, (Lenght == 7 -> make_cover_row(7, Char, Row) ; Lenght == 6 -> make_white_row(7,' ',Row) ; Lenght == 2 -> make_black_row(7,' ',Row) ; Lenght == 1 -> make_cover_row(7, Char, Row) ; make_row(7, ' ', Row)), Sub1 = .(Row, Sub), make_board(Lenght1, Char, Board, Sub1).
 initial_state(Lenght, Board) :- make_board(Lenght, 'X', Board).
+
+
 

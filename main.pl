@@ -11,7 +11,10 @@ draw :- initial_state(7, Board),
             create_player_1(Player1),
             create_player_2(Player2),
             place_pieces(Blocked, Player1, Player2),
-            draw_board(Board).
+            place_initial_empty_pieces,
+            draw_board(Board),
+            update_board(Board1, 1),
+            draw_board(Board1).
 
 test :-
             create_blocked_list(Blocked),
@@ -19,8 +22,8 @@ test :-
             create_player_2(Player2),
             place_pieces(Blocked, Player1, Player2),
             place_initial_empty_pieces(1),
-            valid_moves(Blocked, Player1, Valid),
-            in_check('K', 4, 6, Valid).
+            valid_moves(Blocked, Player1, Valid, []),
+            in_check('K', 2, 1, Valid).
             
 
 play:-
