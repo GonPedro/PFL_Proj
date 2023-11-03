@@ -1,6 +1,6 @@
 :- use_module(library(lists)).
 
-:- dynamic piece/2.
+:- dynamic piece/3.
 
 make_row(Lenght, Char, Row) :- 
             make_row(Lenght, Char, Row, []).

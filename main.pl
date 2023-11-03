@@ -21,9 +21,9 @@ test :-
             create_player_1(Player1),
             create_player_2(Player2),
             place_pieces(Blocked, Player1, Player2),
-            place_initial_empty_pieces(1),
-            valid_moves(Blocked, Player1, Valid, []),
-            in_check('K', 2, 1, Valid).
+            place_initial_empty_pieces,
+            valid_moves(Blocked, Player1, Valid),
+            in_check(2, 1).
             
 
 play:-
