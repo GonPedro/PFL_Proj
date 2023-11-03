@@ -1,6 +1,7 @@
 :- consult(display).
 :- consult(board).
 :- consult(move).
+:- consult(input).
 
 clone([],[]).
 clone([H|T],[H|Z]):- clone(T,Z).
@@ -21,3 +22,17 @@ test :-
             valid_moves(Blocked, Player1, Valid),
             in_check('K', 4, 6, Valid).
             
+
+play:-
+            draw_header,
+            write('Welcome to Shakti!'), nl,
+            get_gamemode(Gm),
+            (
+                Gm == 2 ->
+                get_computer_level(Bl)
+                ;
+                Gm == 3 ->
+                get_computer_level(Bl1),
+                get_computer_level(Bl2)
+                %-gameloop em tudo agora
+            ).
