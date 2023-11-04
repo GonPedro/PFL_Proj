@@ -34,9 +34,9 @@ in_check(P, X, Y) :-
         Y2 is Y + 1,
         (in_check_place(P, X, Y2, 0, 1) ; in_check_place(P, X, Y1, 0, -1) ; in_check_place(P, X1, Y, -1, 0) ; in_check_place(P, X2, Y , 1, 0) ; in_check_place(P, X1, Y2, -1, 1) ; in_check_place(P, X2, Y2, 1, 1) ; in_check_place(P, X1, Y1, -1, -1) ; in_check_place(P, X2, Y1, 1, -1)).
 
-valid_piece_mov(_,_,_,_,_,2, Moves, Moves).
-valid_piece_mov(_,_,_,_,'K',1, Moves,  Moves).
-valid_piece_mov(_,_,_,_,'Q',1, Moves, Moves).
+valid_piece_mov(_,_,_,_,_,2, Moves, Moves) :- !.
+valid_piece_mov(_,_,_,_,'K',1, Moves,  Moves) :- !.
+valid_piece_mov(_,_,_,_,'Q',1, Moves, Moves) :- !.
 valid_piece_mov(_,0,_,_,_,_, Moves, Moves).
 valid_piece_mov(_,8,_,_,_,_, Moves, Moves).
 valid_piece_mov(0,_,_,_,_,_, Moves, Moves).
@@ -70,29 +70,34 @@ valid_piece_mov(X, Y, Xoff, Yoff, P, C, Moves, Acc) :-
                             )
                         ;
                         Acc1 = .([P,X,Y], Acc),
-                        Y1 is Y + 1,
-                        piece(T1, X, Y1),
+                        X1 is X + Xoff,
+                        Y1 is Y + Yoff,
                         (
-                            T1 == ' ' ->
+                            piece(T1, X1, Y1) ->
                             (
-                                (P == 'C' ; P == 'B') ->
-                                piece('Q', Xk, Yk),
-                                K = 'Q'
+                                T1 == ' ' ->
+                                (
+                                    (P == 'C' ; P == 'B') ->
+                                    piece('Q', Xk, Yk),
+                                    K = 'Q'
+                                    ;
+                                    piece('K', Xk, Yk),
+                                    K = 'K'
+                                ),
+                                retractall(piece(' ', X, Y)),
+                                assert(piece('X', X, Y)),
+                                (
+                                    \+ in_check(K, Xk, Yk) ->
+                                    Moves = .([P, X1, Y1], Acc1)
+                                ),
+                                retractall(piece('X', X, Y)),
+                                assert(piece(' ', X, Y))
                                 ;
-                                piece('K', Xk, Yk),
-                                K = 'K'
-                            ),
-                            retractall(piece(' ', X, Y)),
-                            assert(piece('X', X, Y)),
-                            (
-                                \+ in_check(K, Xk, Yk) ->
-                                Moves = .([P, X, Y1], Acc1)
-                            ),
-                            retractall(piece('X', X, Y)),
-                            assert(piece(' ', X, Y))
+                                Moves = Acc1
+
+                            )
                             ;
                             Moves = Acc1
-
                         )
                     )
                     ;
@@ -117,7 +122,7 @@ valid_piece_moves([T, X, Y], Acc) :-
             valid_piece_mov(X, Y1, 0, 1, T, 0, Up, []),
             valid_piece_mov(X, Y2, 0, -1, T, 0, Down, []),
             valid_piece_mov(X1, Y, -1, 0, T, 0, Left, []),
-            valid_piece_mov(X2, Y, 0, 1, T, 0, Right, []),
+            valid_piece_mov(X2, Y, 1, 0, T, 0, Right, []),
             valid_piece_mov(X1, Y1, -1, 1, T, 0, Upleft, []),
             valid_piece_mov(X2, Y1, 1, 1, T, 0, Upright, []),
             valid_piece_mov(X1, Y2, -1, -1, T, 0, Downleft, []),
