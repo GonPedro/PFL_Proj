@@ -39,7 +39,7 @@ Rei:
 - O Rei pode mover-se para a primeira célula vazia do tabuleiro, em qualquer uma das oito direções;
 - No caso de se encontrar em <i>check</i>, o Rei apenas se poderá mover para os azulejos adjacentes à sua posição.
 
-Se um jogador não conseguir realizar nenhuma jogada válida é obrigado a desistir do seu turno e passar a vez ao adversário.
+Se um jogador não conseguir realizar nenhuma jogada válida é obrigado a desistir do seu turno e a passar a vez ao adversário.
 </p>
 
 Tanto as regras como o funcionamento do jogo foram consultadas nos seguintes websites: [Iggmaecenter](https://www.iggamecenter.com/en/rules/shakti), [Mindsports](https://mindsports.nl/index.php/the-pit/550-shakti) e [Boardgamegeek](https://boardgamegeek.com/boardgame/42595/shakti).
