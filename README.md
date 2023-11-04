@@ -16,14 +16,31 @@ Para instalar e correr o jogo Shakti é necessário descarregar o ficheiro <b>PF
 
 <p justify="center">
 "Shakti" é um jogo de estratégia abstrato, projetado para dois jogadores, que foi criado em 1982 por Christian Freeling[1]. Muitas vezes sendo descrito como uma variante do Xadrez, o jogo é jogado num tabuleiro quadrado de dimensões 7x7, onde cada célula do tabuleiro, exceto as das extremidades, possui um azulejo e cada jogador possui um rei e dois guerreiros[1],[2].
-O jogo inicia-se com as peças de cada jogador alianhadas (como mostra a figura abaixo), sendo o jogador detentor das peças brancas a fazer a primeira jogada. Ganha o jogo o jogador que conseguir dar checkmate ao Rei do oponente, ou seja, colocar as suas peças no tabuleiro de tal forma que o Rei do seu oponente, independentemente da célula para o qual se mova, acabe sempre capturado[1].
+O jogo inicia-se com as peças de cada jogador alianhadas, sendo o jogador detentor das peças brancas a fazer a primeira jogada. Ganha o jogo o jogador que conseguir dar checkmate ao Rei do oponente, ou seja, colocar as suas peças no tabuleiro de tal forma que o Rei do seu oponente, independentemente da célula para o qual se mova, acabe sempre capturado[1]. É possível verificar o início do jogo e um exemplo de fim do jogo nas imagens abaixo anexadas.
 </p>
 
 <p align="center" justify="center">
   <img width="300" alt="init_state" src="https://github.com/GonPedro/PFL_Proj/blob/5f59b3c778d40f1b5bdbc177ad6fd79cc903702e/Images/init_state.png"/>
 </p>
 <p align="center">
-  <b><i>Img 1. Shakti Initial State</i></b>
+  <b><i>Shakti Initial State</i></b>
+</p>
+
+<p align="center" justify="center">
+  <img width="300" alt="init_state" src="https://github.com/GonPedro/PFL_Proj/blob/5f59b3c778d40f1b5bdbc177ad6fd79cc903702e/Images/init_state.png"/>
+</p>
+<p align="center">
+  <b><i>Shakti End State</i></b>
+</p>
+
+<p justify="center">
+Porém existem algumas particularidades no movimento das diferentes peças:
+
+<b>Guerreiro</b>
+-
+
+<b>Rei</b>
+-
 </p>
 
 ## Lógica do Jogo
