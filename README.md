@@ -3,7 +3,7 @@
 Grupo Shakti_1:
 
 - Bruno Drumond (up201202666) - Contribuição: 0.1%
-- Gonçalo Nadais Pinho (up ) - Contribuição: 99.9%
+- Gonçalo Nadais de Pinho (up202108672) - Contribuição: 99.9%
 
 
 ## Instalação e Execução
