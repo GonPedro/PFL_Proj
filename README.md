@@ -20,7 +20,7 @@ O jogo inicia-se com as peças de cada jogador alianhadas (como mostra a figura 
 </p>
 
 <p align="center" justify="center">
-  <img src="https://user-images.githubusercontent.com/93979108/209412036-556cc571-4d9f-47d6-aa13-f9a697207c42.gif"/>
+  <img src="https://github.com/GonPedro/PFL_Proj/blob/5f59b3c778d40f1b5bdbc177ad6fd79cc903702e/Images/init_state.png"/>
 </p>
 <p align="center">
   <b><i>Img 1. Shakti Initial State</i></b>
