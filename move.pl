@@ -55,6 +55,8 @@ valid_piece_mov(X, Y, Xoff, Yoff, P, C, Moves, Acc) :-
                         ;
                         Moves = Acc
                     )
+                    ;
+                    Moves = Acc
                 )
                 ;
                 (
@@ -87,10 +89,14 @@ valid_piece_mov(X, Y, Xoff, Yoff, P, C, Moves, Acc) :-
                                 assert(piece('X', X, Y)),
                                 (
                                     \+ in_check(K, Xk, Yk) ->
-                                    Moves = .([P, X1, Y1], Acc1)
-                                ),
-                                retractall(piece('X', X, Y)),
-                                assert(piece(' ', X, Y))
+                                    Moves = .([P, X1, Y1], Acc1),
+                                    retractall(piece('X', X, Y)),
+                                    assert(piece(' ', X, Y))
+                                    ;
+                                    retractall(piece('X', X, Y)),
+                                    assert(piece(' ', X, Y)),
+                                    Moves = Acc1
+                                )
                                 ;
                                 Moves = Acc1
 
@@ -103,7 +109,7 @@ valid_piece_mov(X, Y, Xoff, Yoff, P, C, Moves, Acc) :-
                     T == 'X' ->
                     Y1 is Y + Yoff,
                     X1 is X + Xoff,
-                    valid_piece_mov(X, Y1, Xoff, Yoff, P, C, Moves, Acc)
+                    valid_piece_mov(X1, Y1, Xoff, Yoff, P, C, Moves, Acc)
                     ;
                     valid_piece_mov(X, Y, Xoff, Yoff, P, 2, Moves, Acc)
                 )
@@ -140,5 +146,110 @@ valid_moves(Board, [H | T], Available_moves, Acc) :-
             valid_piece_moves(H, Acc1),
             unpack_list(Acc1, Acc, Acc2),
             valid_moves(Board, T, Available_moves, Acc2).
+    
+move(Board, [P, X, Y], Valid_moves, Board1) :-
+            member([P, X, Y], Valid_moves),
+            piece(P, Xo, Yo),
+            Xoff is X - Xo,
+            Yoff is Y - Yo,
+            (
+                %downleft
+                (Xoff == - 2, Yoff == -2) ->
+                Xrem is X + 1,
+                Yrem is Y + 1,
+                retractall(piece(' ', Xrem, Yrem)),
+                assert(piece('X', Xrem, Yrem)),
+                retractall(piece(P, Xo, Yo)),
+                retractall(piece(' ', X, Y)),
+                assert(piece(P, X, Y)),
+                assert(piece(' ', Xo, Yo)),
+                update_board(Board1, 1)
+                ;
+                %downright
+                (Xoff == 2, Yoff == -2) ->
+                Xrem is X - 1,
+                Yrem is Y + 1,
+                retractall(piece(' ', Xrem, Yrem)),
+                assert(piece('X', Xrem, Yrem)),
+                retractall(piece(P, Xo, Yo)),
+                retractall(piece(' ', X, Y)),
+                assert(piece(P, X, Y)),
+                assert(piece(' ', Xo, Yo)),
+                update_board(Board1, 1)
+                ;
+                %upleft
+                (Xoff == -2, Yoff == 2) ->
+                Xrem is X + 1,
+                Yrem is Y - 1,
+                retractall(piece(' ', Xrem, Yrem)),
+                assert(piece('X', Xrem, Yrem)),
+                retractall(piece(P, Xo, Yo)),
+                retractall(piece(' ', X, Y)),
+                assert(piece(P, X, Y)),
+                assert(piece(' ', Xo, Yo)),
+                update_board(Board1, 1)
+                ;
+                %upright
+                (Xoff == 2, Yoff == 2) ->
+                Xrem is X - 1,
+                Yrem is Y - 1,
+                retractall(piece(' ', Xrem, Yrem)),
+                assert(piece('X', Xrem, Yrem)),
+                retractall(piece(P, Xo, Yo)),
+                retractall(piece(' ', X, Y)),
+                assert(piece(P, X, Y)),
+                assert(piece(' ', Xo, Yo)),
+                update_board(Board1, 1)
+                ;
+                %up
+                (Yoff == 2) ->
+                Yrem is Y - 1,
+                retractall(piece(' ', X, Yrem)),
+                assert(piece('X', X, Yrem)),
+                retractall(piece(P, Xo, Yo)),
+                retractall(piece(' ', X, Y)),
+                assert(piece(P, X, Y)),
+                assert(piece(' ', Xo, Yo)),
+                update_board(Board1, 1)
+                ;
+                %down
+                (Yoff == -2) ->
+                Yrem is Y + 1,
+                retractall(piece(' ', X, Yrem)),
+                assert(piece('X', X, Yrem)),
+                retractall(piece(P, Xo, Yo)),
+                retractall(piece(' ', X, Y)),
+                assert(piece(P, X, Y)),
+                assert(piece(' ', Xo, Yo)),
+                update_board(Board1, 1)
+                ;
+                %left
+                (Xoff == -2) ->
+                Xrem is X + 1,
+                retractall(piece(' ', Xrem, Y)),
+                assert(piece('X', Xrem, Y)),
+                retractall(piece(P, Xo, Yo)),
+                retractall(piece(' ', X, Y)),
+                assert(piece(P, X, Y)),
+                assert(piece(' ', Xo, Yo)),
+                update_board(Board1, 1)
+                ;
+                %right
+                (Xoff == 2) ->
+                Xrem is X - 1,
+                retractall(piece(' ', Xrem, Y)),
+                assert(piece('X', Xrem, Y)),
+                retractall(piece(P, Xo, Yo)),
+                retractall(piece(' ', X, Y)),
+                assert(piece(P, X, Y)),
+                assert(piece(' ', Xo, Yo)),
+                update_board(Board1, 1)
+                ;
+                retractall(piece(P, Xo, Yo)),
+                retractall(piece(' ', X, Y)),
+                assert(piece(P, X, Y)),
+                assert(piece(' ', Xo, Yo)),
+                update_board(Board1, 1)
+            ).
 
 

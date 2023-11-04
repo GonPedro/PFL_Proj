@@ -1,4 +1,5 @@
 :- use_module(library(lists)).
+:- consult(move).
 
 :- dynamic piece/3.
 
@@ -128,6 +129,57 @@ place_initial_empty_pieces :-
     assert(piece(' ', 4, 7)),
     assert(piece(' ', 5, 7)),
     assert(piece(' ', 6, 7)).
+
+test_place :-
+    assert(piece('X', 1, 1)),
+    assert(piece(' ', 2, 1)),
+    assert(piece(' ', 3, 1)),
+    assert(piece(' ', 4, 1)),
+    assert(piece(' ', 5, 1)),
+    assert(piece(' ', 6, 1)),
+    assert(piece('X', 7, 1)),
+    assert(piece(' ', 1, 2)),
+    assert(piece(' ', 2, 2)),
+    assert(piece(' ', 3, 2)),
+    assert(piece('Q', 4, 2)),
+    assert(piece(' ', 5, 2)),
+    assert(piece('B', 6, 2)),
+    assert(piece(' ', 7, 2)),
+    assert(piece(' ', 1, 3)),
+    assert(piece(' ', 2, 3)),
+    assert(piece('X', 3, 3)),
+    assert(piece(' ', 4, 3)),
+    assert(piece(' ', 5, 3)),
+    assert(piece(' ', 6, 3)),
+    assert(piece(' ', 7, 3)),
+    assert(piece(' ', 1, 4)),
+    assert(piece(' ', 2, 4)),
+    assert(piece(' ', 3, 4)),
+    assert(piece(' ', 4, 4)),
+    assert(piece(' ', 5, 4)),
+    assert(piece(' ', 6, 4)),
+    assert(piece(' ', 7, 4)),
+    assert(piece(' ', 1, 5)),
+    assert(piece(' ', 2, 5)),
+    assert(piece(' ', 3, 5)),
+    assert(piece('C', 4, 5)),
+    assert(piece(' ', 5, 5)),
+    assert(piece(' ', 6, 5)),
+    assert(piece(' ', 7, 5)),
+    assert(piece(' ', 1, 6)),
+    assert(piece(' ', 2, 6)),
+    assert(piece(' ', 3, 6)),
+    assert(piece('K', 4, 6)),
+    assert(piece(' ', 5, 6)),
+    assert(piece('P', 6, 6)),
+    assert(piece(' ', 7, 6)),
+    assert(piece('X', 1, 7)),
+    assert(piece('T', 2, 7)),
+    assert(piece(' ', 3, 7)),
+    assert(piece(' ', 4, 7)),
+    assert(piece(' ', 5, 7)),
+    assert(piece(' ', 6, 7)),
+    assert(piece('X', 7, 7)).
     
 
 update_board_row(Y, X, Row) :- update_board_row(Y, X, Row, []).
@@ -146,6 +198,18 @@ update_board(Board, Y, Acc) :-
             Acc1 = .(Row, Acc),
             Y1 is Y + 1,
             update_board(Board, Y1, Acc1).
+
+update_player_piece([P, _, _], Acc) :-
+            piece(P, X, Y),
+            Acc = [P, X, Y].
+
+update_player([H | T], Player) :- update_player([H | T], Player, []).
+update_player([], Player, Player).
+update_player([H | T], Player, Acc) :-
+            update_player_piece(H, Acc1),
+            Acc2 = .(Acc1, Acc),
+            update_player(T, Player, Acc2).
+
             
 make_board(Lenght, Char, Board) :- make_board(Lenght, 'X', Board, []).
 make_board(0, _, Board, Board).
