@@ -15,7 +15,15 @@ Para instalar e correr o jogo Shakti é necessário descarregar o ficheiro <b>PF
 ## Descrição do Jogo
 
 <p justify="center">
+"Shakti" é um jogo de estratégia abstrato, projetado para dois jogadores, que foi criado em 1982 por Christian Freeling[1]. Muitas vezes sendo descrito como uma variante do Xadrez, o jogo é jogado num tabuleiro quadrado de dimensões 7x7, onde cada célula do tabuleiro, exceto as das extremidades, possui um azulejo e cada jogador possui um rei e dois guerreiros[1],[2].
+O jogo inicia-se com as peças de cada jogador alianhadas (como mostra a figura abaixo), sendo o jogador detentor das peças brancas a fazer a primeira jogada. Ganha o jogo o jogador que conseguir dar checkmate ao Rei do oponente, ou seja, colocar as suas peças no tabuleiro de tal forma que o Rei do seu oponente, independentemente da célula para o qual se mova, acabe sempre capturado[1].
+</p>
 
+<p align="center" justify="center">
+  <img src="https://user-images.githubusercontent.com/93979108/209412036-556cc571-4d9f-47d6-aa13-f9a697207c42.gif"/>
+</p>
+<p align="center">
+  <b><i>Img 1. Shakti Initial State</i></b>
 </p>
 
 ## Lógica do Jogo
