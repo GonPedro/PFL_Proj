@@ -23,7 +23,7 @@ test :-
             place_pieces(Blocked, Player1, Player2),
             place_initial_empty_pieces,
             valid_moves(Blocked, Player1, Valid),
-            in_check(2, 1).
+            write(Valid), nl.
             
 
 play:-
