@@ -42,7 +42,6 @@ valid_piece_mov(_,8,_,_,_,_, Moves, Moves).
 valid_piece_mov(0,_,_,_,_,_, Moves, Moves).
 valid_piece_mov(8,_,_,_,_,_, Moves, Moves).
 valid_piece_mov(X, Y, Xoff, Yoff, P, C, Moves, Acc) :-
-            (C < 2 ; (P \== 'K', C \== 1) ; (P \== 'Q', C \== 1)),
             Xp is X - Xoff,
             Yp is Y - Yoff,
             piece(T, X, Y),
