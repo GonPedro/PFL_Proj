@@ -8,6 +8,8 @@ Grupo Shakti_1:
 
 ## Instalação e Execução
 
+No caso de não possuir o software Sicstus Prolog 4.8, clique [aqui](https://sicstus.sics.se/download4.html) para download e instruções de instalação.
+
 <p align="justify">
 Para instalar e correr o jogo Shakti é necessário descarregar o ficheiro <b>PFL_TP1_T14_Shakti_1.zip</b> e, posteriormente, descompactá-lo. Uma vez descompactado, basta aceder ao diretório <b>source-code</b> e consultar o ficheiro <b>main.pl</b> (pela UI do Sicstus Prolog 4.8 ou através da linha de comandos). O jogo é iniciado com o predicado <b>play/0</b>, sendo suportado por ambientes Windows e Linux.
 </p>
@@ -40,9 +42,7 @@ Rei:
 Se um jogador não conseguir realizar nenhuma jogada válida é obrigado a desistir do seu turno e passar a vez ao adversário.
 </p>
 
-<p align="justify">
-Tanto as regras como o funcionamento do jogo foram consultadas nos seguintes websites: [Iggmaecenter](https://www.iggamecenter.com/en/rules/shakti),[Mindsports](https://mindsports.nl/index.php/the-pit/550-shakti) e [Boardgamegeek](https://boardgamegeek.com/boardgame/42595/shakti).
-</p>
+Tanto as regras como o funcionamento do jogo foram consultadas nos seguintes websites: [Iggmaecenter](https://www.iggamecenter.com/en/rules/shakti), [Mindsports](https://mindsports.nl/index.php/the-pit/550-shakti) e [Boardgamegeek](https://boardgamegeek.com/boardgame/42595/shakti).
 
 ## Lógica do Jogo
 
@@ -53,7 +53,7 @@ Tanto as regras como o funcionamento do jogo foram consultadas nos seguintes web
 
 ## Referências
 
-As regras, estatísticas e funcionamento do jogo foram consultadas nos respetivos sites:
+As regras e funcionamento do jogo foram consultadas nos respetivos sites:
 - https://www.iggamecenter.com/en/rules/shakti
 - https://mindsports.nl/index.php/the-pit/550-shakti
 - https://boardgamegeek.com/boardgame/42595/shakti
