@@ -42,9 +42,16 @@ pvp(Board, Curr_player, Opp_player, PlayerI):-
             draw_player(Player),
             draw_board(Board),
             valid_moves(Board, Curr_player, Valid),
-            write('Here are your available moves:'), nl,
-            draw_available_moves(Valid),
-            process_player_mov(Board, Curr_player, Opp_player, Valid, PlayerI).
+            (
+                check_mate(Valid) ->
+                F1 is Player mod 2,
+                Winner is F1 + 1,
+                game_over(Board, Winner)
+                ;
+                write('Here are your available moves:'), nl,
+                draw_available_moves(Valid),
+                process_player_mov(Board, Curr_player, Opp_player, Valid, PlayerI)
+            ).
 
 
 

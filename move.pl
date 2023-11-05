@@ -34,6 +34,16 @@ in_check(P, X, Y) :-
         Y2 is Y + 1,
         (in_check_place(P, X, Y2, 0, 1) ; in_check_place(P, X, Y1, 0, -1) ; in_check_place(P, X1, Y, -1, 0) ; in_check_place(P, X2, Y , 1, 0) ; in_check_place(P, X1, Y2, -1, 1) ; in_check_place(P, X2, Y2, 1, 1) ; in_check_place(P, X1, Y1, -1, -1) ; in_check_place(P, X2, Y1, 1, -1)).
 
+check_mate([]).
+check_mate([[P, X, Y] | T]) :-
+            (
+                (P == 'K' ; P == 'Q') ->
+                fail
+                ;
+                check_mate(T)
+            ).
+
+
 valid_piece_mov(_,_,_,_,_,2, Moves, Moves) :- !.
 valid_piece_mov(_,_,_,_,'K',1, Moves,  Moves) :- !.
 valid_piece_mov(_,_,_,_,'Q',1, Moves, Moves) :- !.
