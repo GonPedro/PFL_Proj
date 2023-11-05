@@ -19,7 +19,6 @@ get_gamemode(Gm) :-
 get_computer_level(Bl) :-
             write('Please select the computer level:'), nl,
             write('1 - Random'), nl,
-            write('2 - Master'), nl,
             read(Sub),
             (
                 (Sub \== 1 , Sub \== 2) ->
