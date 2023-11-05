@@ -2,8 +2,8 @@
 
 Grupo Shakti_1:
 
-- Bruno Drumond (up201202666) - Contribuição: 0.1%
-- Gonçalo Nadais de Pinho (up202108672) - Contribuição: 99.9%
+- Bruno Drumond (up201202666) - Contribuição: 50%
+- Gonçalo Nadais de Pinho (up202108672) - Contribuição: 50%
 
 
 ## Instalação e Execução
@@ -18,7 +18,9 @@ Para instalar e correr o jogo Shakti é necessário descarregar o ficheiro <b>PF
 
 <p align="justify">
 "Shakti" é um jogo de estratégia rápido (10 a 20 minutos de duração) e abstrato, projetado para dois jogadores, que foi criado em 1982 por Christian Freeling. Muitas vezes sendo descrito como uma variante do Xadrez, o jogo é jogado num tabuleiro de dimensões 7x7, onde cada célula do tabuleiro, exceto as das extremidades, possui um azulejo e cada jogador possui um rei e dois guerreiros.
-O jogo inicia-se com as peças de cada jogador alinhadas, sendo o jogador detentor das peças brancas a fazer a primeira jogada. As peças apenas podem mover-se para células que apresentem um azulejo. Ganha o jogo o jogador que conseguir dar <i>checkmate</i> ao Rei do oponente, ou seja, colocar as suas peças no tabuleiro de tal forma que o Rei do seu oponente, independentemente da célula para o qual se mova, acabe sempre capturado. É possível verificar o início do jogo (imagem da esquerda) e um exemplo de fim do jogo (imagem da direita) nas imagens abaixo anexadas.
+O jogo inicia-se com as peças de cada jogador alinhadas, sendo o jogador detentor das peças brancas a fazer a primeira jogada. As peças apenas podem mover-se para células que apresentem um azulejo. Ganha o jogo o jogador que conseguir dar <i>checkmate</i> ao Rei do oponente, ou seja, colocar as suas peças no tabuleiro de tal forma que o Rei do seu oponente, independentemente da célula para o qual se mova, acabe sempre capturado.
+<br>
+É possível verificar o início do jogo (imagem da esquerda) e um exemplo de fim do jogo, onde o Rei amarelo se encontra em <i>checkmate</i> (imagem da direita), nas imagens abaixo anexadas.
 </p>
 
 <p align="center" justify="center">
