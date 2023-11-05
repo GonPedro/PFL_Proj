@@ -56,6 +56,77 @@ valid_piece_mov(X, Y, Xoff, Yoff, P, C, Moves, Acc) :-
             Yp is Y - Yoff,
             piece(T, X, Y),
             (
+                (P == 'C' ; P == 'B' ; P == 'Q') ->
+                piece('Q', Xk, Yk),
+                K = 'Q'
+                ;
+                piece('K', Xk, Yk),
+                K = 'K'
+            ),
+            (
+                ((P == 'C' ; P == 'B' ; P == 'T' ; P == 'P') , in_check(K, Xk, Yk)) ->
+                (
+                    T == ' ' ->
+                    retractall(piece(P, Xp, Yp)),
+                    assert(piece(' ', Xp, Yp)),
+                    retractall(piece(' ', X, Y)),
+                    assert(piece(P, X, Y)),
+                    (
+                        \+ in_check(K, Xk, Yk) ->
+                        Acc1 = .([P, X, Y], Acc)
+                        ;
+                        Acc1 = Acc
+                    ),
+                    retractall(piece(P, X, Y)),
+                    assert(piece(' ', X, Y)),
+                    retractall(piece(' ', Xp, Yp)),
+                    assert(piece(P, Xp, Yp)),
+                    X1 is X + Xoff,
+                    Y1 is Y + Yoff,
+                    (
+                        piece(T1, X1, Y1) ->
+                        (
+                            T1 == ' ' ->
+                            retractall(piece(' ', X, Y)),
+                            assert(piece('X', X, Y)),
+                            retractall(piece(P, Xp, Yp)),
+                            assert(piece(' ', Xp, Yp)),
+                            retractall(piece(' ', X1, Y1)),
+                            assert(piece(P, X1, Y1)),
+                            (
+                                \+ in_check(K, Xk, Yk) ->
+                                Moves = .([P, X1, Y1], Acc1),
+                                retractall(piece('X', X, Y)),
+                                assert(piece(' ', X, Y)),
+                                retractall(piece(P, X1, Y1)),
+                                assert(piece(' ', X1, Y1)),
+                                retractall(piece(' ', Xp, Yp)),
+                                assert(piece(P, Xp, Yp))
+                                ;
+                                retractall(piece('X', X, Y)),
+                                assert(piece(' ', X, Y)),
+                                retractall(piece(P, X1, Y1)),
+                                assert(piece(' ', X1, Y1)),
+                                retractall(piece(' ', Xp, Yp)),
+                                assert(piece(P, Xp, Yp)),
+                                Moves = Acc1
+                            )
+                            ;
+                            Moves = Acc1
+
+                        )
+                        ;
+                        Moves = Acc1
+                    )
+                    ;
+                    T == 'X' ->
+                    X1 is X + Xoff,
+                    Y1 is Y + Yoff,
+                    valid_piece_mov(X1, Y1, Xoff, Yoff, P, C, Moves, Acc)
+                    ;
+                    valid_piece_mov(X, Y, Xoff, Yoff, P, 2, Moves, Acc)
+                )
+                ;
                 ((P == 'K', in_check(P, Xp, Yp)) ; (P == 'Q', in_check(P, Xp, Yp))) ->
                 (
                     T == ' ' ->
@@ -87,14 +158,6 @@ valid_piece_mov(X, Y, Xoff, Yoff, P, C, Moves, Acc) :-
                             piece(T1, X1, Y1) ->
                             (
                                 T1 == ' ' ->
-                                (
-                                    (P == 'C' ; P == 'B') ->
-                                    piece('Q', Xk, Yk),
-                                    K = 'Q'
-                                    ;
-                                    piece('K', Xk, Yk),
-                                    K = 'K'
-                                ),
                                 retractall(piece(' ', X, Y)),
                                 assert(piece('X', X, Y)),
                                 (
