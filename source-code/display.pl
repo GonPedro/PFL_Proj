@@ -106,11 +106,11 @@ draw_header:-
             write('|-------------------------------Shakti--------------------------------|'), nl,
             write('|---------------------------------------------------------------------|'), nl.
 
-% draw_player(+PlayerI)
+% draw_player(+PlayerID)
 % Draws the header for the player who has the turn to play.
-draw_player(PlayerI):-
+draw_player(PlayerID):-
             write('|---------------------------------------------------------------------|'), nl,
-            write('|-----------------------------Player '), write(PlayerI), write('--------------------------------|'), nl,
+            write('|-----------------------------Player '), write(PlayerID), write('--------------------------------|'), nl,
             write('|---------------------------------------------------------------------|'), nl.
 
 
