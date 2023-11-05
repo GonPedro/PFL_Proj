@@ -36,7 +36,8 @@ pvp(Board, Curr_player, Opp_player, PlayerI):-
                 check_mate(Valid) ->
                 F1 is Player mod 2,
                 Winner is F1 + 1,
-                game_over(Board, Winner)
+                game_over(Board, Winner),
+                retractall(piece(_,_,_))
                 ;
                 write('Here are your available moves:'), nl,
                 draw_available_moves(Valid),
