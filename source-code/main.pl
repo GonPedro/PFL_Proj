@@ -1,10 +1,8 @@
+:- use_module(library(system)).
 :- consult(display).
 :- consult(board).
 :- consult(input).
 :- consult(random_bot).
-
-clone([],[]).
-clone([H|T],[H|Z]):- clone(T,Z).
 
 process_player_mov(Board, Curr_player, Opp_player, Valid, Bl, PlayerI) :-
             get_movement_piece(P, PlayerI),
@@ -93,9 +91,10 @@ pvc(Board, Curr_player, Opp_player, PlayerI, Bl):-
             ).
 
 cvc(Board, Curr_player, Opp_player, PlayerI, Bl1, Bl2):-
+            Player is PlayerI + 1,
+            draw_player(Player),
             draw_board(Board),
             valid_moves(Board, Curr_player, Valid),
-            Player is PlayerI + 1,
             (
                 check_mate(Valid) ->
                 F1 is Player mod 2,
@@ -107,6 +106,7 @@ cvc(Board, Curr_player, Opp_player, PlayerI, Bl1, Bl2):-
                 move(Board, Move, Valid, Board1),
                 New_player is Player mod 2,
                 update_player(Curr_player, New_curr),
+                sleep(2),
                 cvc(Board1, Opp_player, New_curr, New_player, Bl2, Bl1)
             ).
             
