@@ -98,6 +98,48 @@ pvc(Board, Curr_player, Opp_player, PlayerI, Bl):-
 
             ).
 
+cvc(Board, Curr_player, Opp_player, PlayerI, Bl1, Bl2):-
+            (
+                PlayerI == 0 ->
+                draw_board(Board),
+                valid_moves(Board, Curr_player, Valid),
+                (
+                    Player is PlayerI + 1,
+                    check_mate(Valid) ->
+                    F1 is Player mod 2,
+                    Winner is F1 + 1,
+                    game_over(Board, Winner),
+                    retractall(piece(_,_,_))
+                    ;
+                    choose_move(Valid, Bl1, Move),
+                    move(Board, Move, Valid, Board1),
+                    Player is PlayerI + 1,
+                    New_player is Player mod 2,
+                    update_player(Curr_player, New_curr),
+                    update_player(Opp_player, New_opp),
+                    cvc(Board1, New_opp, New_curr, New_player, Bl2, Bl1)
+                )
+                ;
+                valid_moves(Board, Curr_player, Valid),
+                (
+                    Player is PlayerI + 1,
+                    check_mate(Valid) ->
+                    F1 is Player mod 2,
+                    Winner is F1 + 1,
+                    game_over(Board, Winner),
+                    retractall(piece(_,_,_))
+                    ;
+                    choose_move(Valid, Bl1, Move),
+                    move(Board, Move, Valid, Board1),
+                    Player is PlayerI + 1,
+                    New_player is Player mod 2,
+                    update_player(Curr_player, New_curr),
+                    update_player(Opp_player, New_opp),
+                    cvc(Board1, New_opp, New_curr, New_player, Bl2, Bl1)
+                )
+
+            ).
+
 play:-
             draw_header,
             write('Welcome to Shakti!'), nl,
@@ -118,7 +160,8 @@ play:-
                 ;
                 Gm == 3 ->
                 get_computer_level(Bl1),
-                get_computer_level(Bl2)
+                get_computer_level(Bl2),
+                cvc(Board, Player1, Player2, 0, Bl1, Bl2)
                 ;
                 fail
             ).
