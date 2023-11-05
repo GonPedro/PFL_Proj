@@ -2,8 +2,8 @@
 
 Grupo Shakti_1:
 
-- Bruno Drumond (up201202666) - Contribuição: 50%
-- Gonçalo Nadais de Pinho (up202108672) - Contribuição: 50%
+- Bruno Pinto da Silva Drumond (up201202666) - Contribuição: 50%
+- Gonçalo Pedro Nadais de Pinho (up202108672) - Contribuição: 50%
 
 
 ## Instalação e Execução
@@ -47,10 +47,62 @@ Se um jogador não conseguir realizar nenhuma jogada válida é obrigado a desis
 Tanto as regras como o funcionamento do jogo foram consultadas nos seguintes websites: [Iggmaecenter](https://www.iggamecenter.com/en/rules/shakti), [Mindsports](https://mindsports.nl/index.php/the-pit/550-shakti) e [Boardgamegeek](https://boardgamegeek.com/boardgame/42595/shakti).
 
 ## Lógica do Jogo
+### Representação Interna do Estado do Jogo
+<p align="justify">
+O nosso tabuleiro usa a representação tipica de uma lista de listas (linhas do tabuleiro) com diferentes átomos para as peças.
+Os jogadores são, também, lista de listas que contêm as peças desse jogador e as suas coordenadas.
+Para além destas listas nós tiramos proveito do predicado dinâmico piece(Type, X, Y) para estabelecer a posição de tudo no nosso tabuleiro, sejam telhas vazias, telhas bloqueadas e telhas com peças.
+(Podemos incluir screenshots aqui do board secalhar, tanto no inicio como no fim (do jogo) maybe)
+</p>
 
+### Visualização do Estado do Jogo
+<p align="justify">
+Nós utilizamos o predicado draw_board(+Board) para desenhar o tabuleiro no ecrâ.
+Este predicado começa por desenhar o cabeçalho da tabela e, conseguinte, vai ler e desenhar o tabuleiro linha a linha consoante o conteudo lido.
+Também criamos o predicado draw_player(+Player) que anuncia o jogador que vai jogar naquele turno.
+Embora o nosso tabuleiro não tenha um tamanho dinamico implementamos o predicado initial_state(+Size, -Board) para criar o nosso tabuleiro.
+</p>
 
+### Lista de Movimentos Válidos
+<p align="justify">
+Como foi referido na representação interna do estado do jogo, utilizamos o predicado dinâmico piece(Type, X, Y) para estabelecer a posição de todas as telhas do tabuleiro.
+Através deste predicado e das listas dos jogadores conseguimos verificar e validar todos os moves possiveis para todas as peças de um jogador.
+Com isto dito, criamos o predicado valid_moves(+Board, +Player, -Available_moves) onde iteramos pelo Player para descobrirmos todos os movimentos válidos naquele turno para aquele jogador.
+</p>
+
+### Validação e Execução de Movimento
+<p align="justify">
+Tendo a lista de movimentos válidos criadas a validação e execução de movimento torna-se bastante simples.
+Começamos por criar 3 predicados diferentes para pedir ao user para inserir o move que gostaria de fazer, sendo estes:
+  -get_movement_piece(-P, +Player): Pede ao user para inserir a peça que pretende mexer e verifica se essa peça é valida com a ajuda do Player.
+  -get_movement_x(X): Pede ao user para inserir a nova coordenada X da peça que pretende mexer.
+  -get_movement_y(Y): Pede ao user para inserir a nova coordenada y da peça que pretende mexer.
+
+Criamos o predicado Move(+Board, +Move, +Valid_moves, -New_Board) que tira proveito do predicado member(+Element, +List) para verificar se o movimento que o jogador fez está dentro da lista de Valid_moves. Se o move tiver dentro da lista de movimentos validos ele procede a retirar telhas da board se for necessário, seguido da criação do New_Board através do predicado update_board(-UpdatedBoard, +Y, ?Acc), que faz uso do predicado piece(Type, X, Y) para descobrir o que esta no tabuleiro naquelas coordenadas.
+
+Com isto, também fizemos o predicado process_player_mov(+Board, +Curr_player, +Opp_player, +Valid, +Bl, +PlayerI) que utiliza os 3 predicados para pedir o move ao user e tenta executar esse move correndo o predicado Move/4. Se o move suceder ele passa para o proximo turno, senão ele escreve "Invalid Move!" no ecrã e pede ao user para escrever o move outra vez.
+  
+</p>
+
+### Fim do Jogo
+<p align="justify">
+Durante o decorrer do jogo ele está sempre a correr o predicado check_mate(+Valid_Moves) (percorre a lista de movimentos válidos até encontrar um movimento do rei, senão encontrar então está em check_mate) para verificar se o player está em check mate, se estiver em check mate então ele tira todas as peças do tabuleiro, fazendo uso do predicado retractall(), e chama o predicado game_over(+Board, +Winner) que declara o vencedor do jogo e acaba com ele.
+</p>
+
+### Avaliação do Estado do Jogo
+<p align="justify">
+Por má gestão de tempo, não conseguimos criar um predicado para avaliar o estado do jogo.
+</p>
+
+### Jogadas de Computador
+<p align="justify">
+Mais uma vez, por má gestão de tempo não conseguimos implementar o nivel 2 do computador o que significa que o computador vai estar sempre a fazer movimentos á sorte.
+Criamos o predicado choose_move(+Valid, +Level, -Move) para escolher o movimento do computador consoante o seu nivel.
+Tendo só o nivel 1 feito, tiramos proveito da libraria random para utilizar o predicado random_member(-Move, +Valid_Moves) para escolher um movimento á sorte da lista de movimentos válidos.
+</p>
 
 ## Conclusão
+Esta linguagem é uma merda
 
 
 ## Referências
