@@ -6,12 +6,6 @@
 clone([],[]).
 clone([H|T],[H|Z]):- clone(T,Z).
 
-test:-
-        test_place,
-        valid_moves([], [['T', 2, 7], ['K', 4, 6], ['P', 6, 6]], Valid).
-
-            
-
 process_player_mov(Board, Curr_player, Opp_player, Valid, Bl, PlayerI) :-
             get_movement_piece(P, PlayerI),
             get_movement_x(X),
