@@ -1,6 +1,7 @@
 :- consult(display).
 :- consult(board).
 :- consult(input).
+:- consult(random_bot).
 
 clone([],[]).
 clone([H|T],[H|Z]):- clone(T,Z).
@@ -11,7 +12,7 @@ test:-
 
             
 
-process_player_mov(Board, Curr_player, Opp_player, Valid, PlayerI) :-
+process_player_mov(Board, Curr_player, Opp_player, Valid, Bl, PlayerI) :-
             get_movement_piece(P, PlayerI),
             get_movement_x(X),
             get_movement_y(Y),
@@ -21,10 +22,31 @@ process_player_mov(Board, Curr_player, Opp_player, Valid, PlayerI) :-
                 New_player is Player mod 2,
                 update_player(Curr_player, New_curr),
                 update_player(Opp_player, New_opp),
-                pvp(Board1, New_opp, New_curr, New_player)
+                (
+                    Bl == 0 ->
+                    pvp(Board1, New_opp, New_curr, New_player)
+                    ;
+                    pvc(Board1, New_opp, New_curr, New_player, 1)
+                )
                 ;
                 write('Invalid Move!'), nl,
-                process_player_mov(Board, Curr_player, Opp_player, Valid, PlayerI)
+                process_player_mov(Board, Curr_player, Opp_player, Valid, Bl, PlayerI)
+            ).
+
+
+
+process_computer_mov(Board, Curr_player, Opp_player, Valid, Bl, PlayerI) :-
+            choose_move(Valid, Bl, Move),
+            (
+                move(Board, Move, Valid, Board1) ->
+                Player is PlayerI + 1,
+                New_player is Player mod 2,
+                update_player(Curr_player, New_curr),
+                update_player(Opp_player, New_opp),
+                pvc(Board1, New_opp, New_curr, New_player, Bl)
+                ;
+                write('Invalid Move!'), nl,
+                process_computer_mov(Board, Curr_player, Opp_player, Valid, Bl, PlayerI)
             ).
 
 pvp(Board, Curr_player, Opp_player, PlayerI):-
@@ -41,7 +63,39 @@ pvp(Board, Curr_player, Opp_player, PlayerI):-
                 ;
                 write('Here are your available moves:'), nl,
                 draw_available_moves(Valid),
-                process_player_mov(Board, Curr_player, Opp_player, Valid, PlayerI)
+                process_player_mov(Board, Curr_player, Opp_player, Valid, 0, PlayerI)
+            ).
+
+pvc(Board, Curr_player, Opp_player, PlayerI, Bl):-
+            (
+                PlayerI == 0 ->
+                Player is PlayerI + 1,
+                draw_player(Player),
+                draw_board(Board),
+                valid_moves(Board, Curr_player, Valid),
+                (
+                    check_mate(Valid) ->
+                    F1 is Player mod 2,
+                    Winner is F1 + 1,
+                    game_over(Board, Winner),
+                    retractall(piece(_,_,_))
+                    ;
+                    write('Here are your available moves:'), nl,
+                    draw_available_moves(Valid),
+                    process_player_mov(Board, Curr_player, Opp_player, Valid, Bl, PlayerI)
+                )
+                ;
+                valid_moves(Board, Curr_player, Valid),
+                (
+                    check_mate(Valid) ->
+                    F1 is Player mod 2,
+                    Winner is F1 + 1,
+                    game_over(Board, Winner),
+                    retractall(piece(_,_,_))
+                    ;
+                    process_computer_mov(Board, Curr_player, Opp_player, Valid, Bl, PlayerI)
+                )
+
             ).
 
 play:-
@@ -59,7 +113,8 @@ play:-
                 pvp(Board, Player1, Player2, 0)
                 ;
                 Gm == 2 ->
-                get_computer_level(Bl)
+                get_computer_level(Bl),
+                pvc(Board, Player1, Player2, 0, Bl)
                 ;
                 Gm == 3 ->
                 get_computer_level(Bl1),

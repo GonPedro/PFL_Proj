@@ -21,7 +21,7 @@ get_computer_level(Bl) :-
             write('1 - Random'), nl,
             read(Sub),
             (
-                (Sub \== 1 , Sub \== 2) ->
+                (Sub \== 1) ->
                 write('Invalid Input!'), nl,
                 get_computer_level(Bl)
                 ;
