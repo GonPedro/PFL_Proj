@@ -133,6 +133,9 @@ place_pieces(Blocked, Player1, Player2) :-
             place_player_pieces(Player1),
             place_player_pieces(Player2).
 
+
+
+% Assert initial empty pieces on the game board at specific positions.
 place_initial_empty_pieces :-
     assert(piece(' ', 2, 1)),
     assert(piece(' ', 3, 1)),
