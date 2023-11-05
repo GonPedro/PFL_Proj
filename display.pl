@@ -1,10 +1,21 @@
 :-use_module(library(lists)).
 
-draw_board_header_names(0, _).
-draw_board_header_names(Number, Charcode) :- Number > 0, char_code(Char, Charcode), write('  '), write(Char), write('  |'), N1 is Number-1, C1 is Charcode + 1, draw_board_header_names(N1, C1).
-draw_board_header(Size) :- write('      '), write('|'), draw_board_header_names(Size, 97), nl.
+draw_board_header_names(8).
+draw_board_header_names(Number) :- 
+        Number < 8,
+        write('  '),
+        write(Number),
+        write('  |'),
+        N1 is Number+1,
+        draw_board_header_names(N1).
 
-draw_horizontal_limit(0):- write('+'), nl.
+draw_board_header(Size) :- 
+        write('      '),
+        write('|'),
+        draw_board_header_names(Size), nl.
+
+draw_horizontal_limit(0):- 
+        write('+'), nl.
 draw_horizontal_limit(Size) :- write('+-----'), S1 is Size - 1, draw_horizontal_limit(S1).
 
 draw_empty_line(0) :- write('|'), nl.
@@ -30,9 +41,9 @@ draw_board_row([H | T], N) :- N > 1,
             draw_board_row(T, N1).
 
 draw_board([H | T]) :- 
-            draw_board_header(7),
+            draw_board_header(1),
             draw_board_row([H|T], 7),
-            draw_board_header(7).
+            draw_board_header(1).
 
 draw_header:-
             write('|---------------------------------------------------------------------|'), nl,
@@ -53,7 +64,8 @@ draw_available_moves([H | T]) :-
             write(H), write(', '),
             draw_available_moves(T).
 
-
+%game_over(-Board, -Winner)
+%Display the winner of the game.
 game_over(Board, Winner) :-
         write('|-----------------------------Winner----------------------------------|'), nl,
         write('|-----------------------------Player----------------------------------|'), nl,
