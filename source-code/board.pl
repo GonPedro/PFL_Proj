@@ -179,7 +179,7 @@ place_initial_empty_pieces :-
 
 
 
-% update_board_row(+Y, +X, +Row, -UpdatedRow)
+% update_board_row(+Y, +X, -Row, ?Acc)
 % Updates a row of the game board with a new piece at the specified position.
 update_board_row(Y, X, Row) :- update_board_row(Y, X, Row, []).
 
@@ -194,7 +194,7 @@ update_board_row(Y, X, Row, Acc):-
 
 
 
-% update_board(+Board, +Y, -UpdatedBoard)
+% update_board(-UpdatedBoard, +Y, ?Acc)
 % Updates a specific row in the game board with a new row.
 update_board(Board, Y) :- update_board(Board, Y, []).
 
@@ -216,7 +216,7 @@ update_player_piece([P, _, _], Acc) :-
             piece(P, X, Y),
             Acc = [P, X, Y].
 
-% update_player(+Pieces, +Player, -UpdatedPlayer)
+% update_player(+Pieces, -Player, -UpdatedPlayer)
 % Updates the game board configuration of the player-controlled pieces.
 update_player([H | T], Player) :- update_player([H | T], Player, []).
 

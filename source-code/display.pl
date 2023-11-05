@@ -128,7 +128,7 @@ draw_available_moves([H | T]) :-
 
 
 
-% game_over(-Board, -Winner)
+% game_over(+Board, +Winner)
 % Displays the winner of the game.
 game_over(Board, Winner) :-
         write('|-----------------------------Winner----------------------------------|'), nl,
