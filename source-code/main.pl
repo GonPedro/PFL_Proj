@@ -67,9 +67,9 @@ pvp(Board, Curr_player, Opp_player, PlayerI):-
             ).
 
 pvc(Board, Curr_player, Opp_player, PlayerI, Bl):-
+            Player is PlayerI + 1,
             (
                 PlayerI == 0 ->
-                Player is PlayerI + 1,
                 draw_player(Player),
                 draw_board(Board),
                 valid_moves(Board, Curr_player, Valid),
