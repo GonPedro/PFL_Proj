@@ -99,46 +99,23 @@ pvc(Board, Curr_player, Opp_player, PlayerI, Bl):-
             ).
 
 cvc(Board, Curr_player, Opp_player, PlayerI, Bl1, Bl2):-
+            draw_board(Board),
+            valid_moves(Board, Curr_player, Valid),
+            Player is PlayerI + 1,
             (
-                PlayerI == 0 ->
-                draw_board(Board),
-                valid_moves(Board, Curr_player, Valid),
-                (
-                    Player is PlayerI + 1,
-                    check_mate(Valid) ->
-                    F1 is Player mod 2,
-                    Winner is F1 + 1,
-                    game_over(Board, Winner),
-                    retractall(piece(_,_,_))
-                    ;
-                    choose_move(Valid, Bl1, Move),
-                    move(Board, Move, Valid, Board1),
-                    Player is PlayerI + 1,
-                    New_player is Player mod 2,
-                    update_player(Curr_player, New_curr),
-                    update_player(Opp_player, New_opp),
-                    cvc(Board1, New_opp, New_curr, New_player, Bl2, Bl1)
-                )
+                check_mate(Valid) ->
+                F1 is Player mod 2,
+                Winner is F1 + 1,
+                game_over(Board, Winner),
+                retractall(piece(_,_,_))
                 ;
-                valid_moves(Board, Curr_player, Valid),
-                (
-                    Player is PlayerI + 1,
-                    check_mate(Valid) ->
-                    F1 is Player mod 2,
-                    Winner is F1 + 1,
-                    game_over(Board, Winner),
-                    retractall(piece(_,_,_))
-                    ;
-                    choose_move(Valid, Bl1, Move),
-                    move(Board, Move, Valid, Board1),
-                    Player is PlayerI + 1,
-                    New_player is Player mod 2,
-                    update_player(Curr_player, New_curr),
-                    update_player(Opp_player, New_opp),
-                    cvc(Board1, New_opp, New_curr, New_player, Bl2, Bl1)
-                )
-
+                choose_move(Valid, Bl1, Move),
+                move(Board, Move, Valid, Board1),
+                New_player is Player mod 2,
+                update_player(Curr_player, New_curr),
+                cvc(Board1, Opp_player, New_curr, New_player, Bl2, Bl1)
             ).
+            
 
 play:-
             draw_header,

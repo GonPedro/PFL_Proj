@@ -44,16 +44,14 @@ check_mate([[P, X, Y] | T]) :-
             ).
 
 
-valid_piece_mov(_,_,_,_,_,2, Moves, Moves) :- !.
-valid_piece_mov(_,_,_,_,'K',1, Moves,  Moves) :- !.
-valid_piece_mov(_,_,_,_,'Q',1, Moves, Moves) :- !.
-valid_piece_mov(_,0,_,_,_,_, Moves, Moves).
-valid_piece_mov(_,8,_,_,_,_, Moves, Moves).
-valid_piece_mov(0,_,_,_,_,_, Moves, Moves).
-valid_piece_mov(8,_,_,_,_,_, Moves, Moves).
-valid_piece_mov(X, Y, Xoff, Yoff, P, C, Moves, Acc) :-
-            Xp is X - Xoff,
-            Yp is Y - Yoff,
+valid_piece_mov(_,_,_,_,_,_,_,2, Moves, Moves) :- !.
+valid_piece_mov(_,_,_,_,_,_,'K',1, Moves,  Moves) :- !.
+valid_piece_mov(_,_,_,_,_,_,'Q',1, Moves, Moves) :- !.
+valid_piece_mov(_,0,_,_,_,_,_,_, Moves, Moves).
+valid_piece_mov(_,8,_,_,_,_,_,_, Moves, Moves).
+valid_piece_mov(0,_,_,_,_,_,_,_, Moves, Moves).
+valid_piece_mov(8,_,_,_,_,_,_,_, Moves, Moves).
+valid_piece_mov(X, Y, Xp, Yp, Xoff, Yoff, P, C, Moves, Acc) :-
             piece(T, X, Y),
             (
                 (P == 'C' ; P == 'B' ; P == 'Q') ->
@@ -122,9 +120,9 @@ valid_piece_mov(X, Y, Xoff, Yoff, P, C, Moves, Acc) :-
                     T == 'X' ->
                     X1 is X + Xoff,
                     Y1 is Y + Yoff,
-                    valid_piece_mov(X1, Y1, Xoff, Yoff, P, C, Moves, Acc)
+                    valid_piece_mov(X1, Y1, Xp, Yp, Xoff, Yoff, P, C, Moves, Acc)
                     ;
-                    valid_piece_mov(X, Y, Xoff, Yoff, P, 2, Moves, Acc)
+                    valid_piece_mov(X, Y, Xp, Yp, Xoff, Yoff, P, 2, Moves, Acc)
                 )
                 ;
                 ((P == 'K', in_check(P, Xp, Yp)) ; (P == 'Q', in_check(P, Xp, Yp))) ->
@@ -182,9 +180,9 @@ valid_piece_mov(X, Y, Xoff, Yoff, P, C, Moves, Acc) :-
                     T == 'X' ->
                     Y1 is Y + Yoff,
                     X1 is X + Xoff,
-                    valid_piece_mov(X1, Y1, Xoff, Yoff, P, C, Moves, Acc)
+                    valid_piece_mov(X1, Y1, Xp, Yp, Xoff, Yoff, P, C, Moves, Acc)
                     ;
-                    valid_piece_mov(X, Y, Xoff, Yoff, P, 2, Moves, Acc)
+                    valid_piece_mov(X, Y, Xp, Yp, Xoff, Yoff, P, 2, Moves, Acc)
                 )
             ).
 
@@ -197,14 +195,14 @@ valid_piece_moves([T, X, Y], Acc) :-
             Y2 is Y - 1,
             X1 is X - 1,
             X2 is X + 1,
-            valid_piece_mov(X, Y1, 0, 1, T, 0, Up, []),
-            valid_piece_mov(X, Y2, 0, -1, T, 0, Down, []),
-            valid_piece_mov(X1, Y, -1, 0, T, 0, Left, []),
-            valid_piece_mov(X2, Y, 1, 0, T, 0, Right, []),
-            valid_piece_mov(X1, Y1, -1, 1, T, 0, Upleft, []),
-            valid_piece_mov(X2, Y1, 1, 1, T, 0, Upright, []),
-            valid_piece_mov(X1, Y2, -1, -1, T, 0, Downleft, []),
-            valid_piece_mov(X2, Y2, 1, -1, T, 0, Downright, []),
+            valid_piece_mov(X, Y1, X, Y, 0, 1, T, 0, Up, []),
+            valid_piece_mov(X, Y2, X, Y, 0, -1, T, 0, Down, []),
+            valid_piece_mov(X1, Y, X, Y, -1, 0, T, 0, Left, []),
+            valid_piece_mov(X2, Y, X, Y, 1, 0, T, 0, Right, []),
+            valid_piece_mov(X1, Y1, X, Y, -1, 1, T, 0, Upleft, []),
+            valid_piece_mov(X2, Y1, X, Y, 1, 1, T, 0, Upright, []),
+            valid_piece_mov(X1, Y2, X, Y, -1, -1, T, 0, Downleft, []),
+            valid_piece_mov(X2, Y2, X, Y, 1, -1, T, 0, Downright, []),
             unpack_list(Up, Down, Sub1),
             unpack_list(Left, Right, Sub2),
             unpack_list(Upleft, Upright, Sub3),
