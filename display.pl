@@ -20,6 +20,7 @@ draw_board_row([H | T], 1) :-
             draw_values(H, 1, 0),
             draw_empty_line(9),
             draw_horizontal_limit(9).
+
 draw_board_row([H | T], N) :- N > 1,
             N1 is N-1,
             draw_horizontal_limit(9),
@@ -32,7 +33,6 @@ draw_board([H | T]) :-
             draw_board_header(7),
             draw_board_row([H|T], 7),
             draw_board_header(7).
-
 
 draw_header:-
             write('|---------------------------------------------------------------------|'), nl,
@@ -58,11 +58,3 @@ game_over(Board, Winner) :-
         write('|-----------------------------Winner----------------------------------|'), nl,
         write('|-----------------------------Player----------------------------------|'), nl,
         write('|-------------------------------'), write(Winner), write('-------------------------------------|'), nl.
-
-
-
-
-
-
-
-

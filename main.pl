@@ -5,19 +5,9 @@
 clone([],[]).
 clone([H|T],[H|Z]):- clone(T,Z).
 
-draw :- initial_state(7, Board),
-            create_blocked_list(Blocked),
-            create_player_1(Player1),
-            create_player_2(Player2),
-            place_pieces(Blocked, Player1, Player2),
-            place_initial_empty_pieces,
-            draw_board(Board),
-            update_board(Board1, 1),
-            draw_board(Board1).
-
 test:-
-            test_place,
-            valid_moves([], [['T', 2, 7], ['K', 4, 6], ['P', 6, 6]], Valid).
+        test_place,
+        valid_moves([], [['T', 2, 7], ['K', 4, 6], ['P', 6, 6]], Valid).
 
             
 
@@ -53,11 +43,6 @@ pvp(Board, Curr_player, Opp_player, PlayerI):-
                 process_player_mov(Board, Curr_player, Opp_player, Valid, PlayerI)
             ).
 
-
-
-
-
-
 play:-
             draw_header,
             write('Welcome to Shakti!'), nl,
@@ -69,6 +54,9 @@ play:-
             place_pieces(Blocked, Player1, Player2),
             place_initial_empty_pieces,
             (
+                Gm == 1 ->
+                pvp(Board, Player1, Player2, 0)
+                ;
                 Gm == 2 ->
                 get_computer_level(Bl)
                 ;
@@ -76,5 +64,5 @@ play:-
                 get_computer_level(Bl1),
                 get_computer_level(Bl2)
                 ;
-                pvp(Board, Player1, Player2, 0)
+                fail
             ).
