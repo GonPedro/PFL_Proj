@@ -81,13 +81,30 @@ check_mate([[P, X, Y] | T]) :-
             ).
 
 
+
+% base case for valid_piece_mov
 valid_piece_mov(_,_,_,_,_,_,_,2, Moves, Moves) :- !.
+
+% base case for valid_piece_mov
 valid_piece_mov(_,_,_,_,_,_,'K',1, Moves,  Moves) :- !.
+
+% base case for valid_piece_mov
 valid_piece_mov(_,_,_,_,_,_,'Q',1, Moves, Moves) :- !.
+
+% base case for valid_piece_mov
 valid_piece_mov(_,0,_,_,_,_,_,_, Moves, Moves).
+
+% base case for valid_piece_mov
 valid_piece_mov(_,8,_,_,_,_,_,_, Moves, Moves).
+
+% base case for valid_piece_mov
 valid_piece_mov(0,_,_,_,_,_,_,_, Moves, Moves).
+
+% base case for valid_piece_mov
 valid_piece_mov(8,_,_,_,_,_,_,_, Moves, Moves).
+
+% valid_piece_mov(+X, +Y, +Xp, +Yp, +Xoff, +Yoff, +P, +C, +Moves, Acc)
+% Determines a valid piece movement on the board based on the provided parameters.
 valid_piece_mov(X, Y, Xp, Yp, Xoff, Yoff, P, C, Moves, Acc) :-
             piece(T, X, Y),
             (
@@ -225,7 +242,8 @@ valid_piece_mov(X, Y, Xp, Yp, Xoff, Yoff, P, C, Moves, Acc) :-
 
                         
                     
-                    
+% valid_piece_moves(+[T, X, Y], Acc)
+% Determines all the valid movements for a single piece and combines them into a single list.                    
 valid_piece_moves([T, X, Y], Acc) :-
             Y1 is Y + 1,
             Y2 is Y - 1,
@@ -247,8 +265,18 @@ valid_piece_moves([T, X, Y], Acc) :-
             unpack_list(Sub3, Sub4, Sub6),
             unpack_list(Sub5, Sub6, Acc).
 
-valid_moves(Board, [H | T], Available_moves) :- valid_moves(Board, [H | T], Available_moves, []).
+
+
+% valid_moves(+Board, +Pieces, -Available_moves)
+% Determines all the valid movements for a list of pieces and combines them into a final list of available moves. (First Call)
+valid_moves(Board, [H | T], Available_moves) :- 
+            valid_moves(Board, [H | T], Available_moves, []).
+
+% base case for valid_moves
 valid_moves(_, [], Available_moves, Available_moves).
+
+% valid_moves(+Board, +Pieces, -Available_moves, Acc)
+% Determines all the valid movements for a list of pieces and combines them into a final list of available moves. (Recursive Call)
 valid_moves(Board, [H | T], Available_moves, Acc) :-
             valid_piece_moves(H, Acc1),
             unpack_list(Acc1, Acc, Acc2),
