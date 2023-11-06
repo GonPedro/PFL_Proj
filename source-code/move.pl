@@ -17,7 +17,7 @@ unpack_list([H | T], Dest, Ret, Acc) :-
 
 
 % in_check_place(+P, +X, +Y, +Xoff, +Yoff)
-% Determines if a piece at a specific position puts the opponent's king in check.
+% Determines if there is a piece at a specific position that puts the player's king in check.
 in_check_place(P, X, Y, Xoff, Yoff) :-
             piece(T, X, Y),
             T = 'X', !,
@@ -103,8 +103,8 @@ valid_piece_mov(0,_,_,_,_,_,_,_, Moves, Moves).
 % base case for valid_piece_mov
 valid_piece_mov(8,_,_,_,_,_,_,_, Moves, Moves).
 
-% valid_piece_mov(+X, +Y, +Xp, +Yp, +Xoff, +Yoff, +P, +C, +Moves, Acc)
-% Determines a valid piece movement on the board based on the provided parameters.
+% valid_piece_mov(+X, +Y, +Xp, +Yp, +Xoff, +Yoff, +P, +C, -Moves, Acc)
+% Determines valid piece moves in a direction on the board based on the provided parameters.
 valid_piece_mov(X, Y, Xp, Yp, Xoff, Yoff, P, C, Moves, Acc) :-
             piece(T, X, Y),
             (
@@ -242,7 +242,7 @@ valid_piece_mov(X, Y, Xp, Yp, Xoff, Yoff, P, C, Moves, Acc) :-
 
                         
                     
-% valid_piece_moves(+[T, X, Y], Acc)
+% valid_piece_moves(+[T, X, Y], -Acc)
 % Determines all the valid movements for a single piece and combines them into a single list.                    
 valid_piece_moves([T, X, Y], Acc) :-
             Y1 is Y + 1,
@@ -285,7 +285,7 @@ valid_moves(Board, [H | T], Available_moves, Acc) :-
 
 
 % move(+Board, +Move, +Valid_moves, -New_board)
-% Executes a move on the board and updates the board accordingly.
+% Validates and executes a move on the board, updating the board accordingly.
 move(Board, [P, X, Y], Valid_moves, Board1) :-
             member([P, X, Y], Valid_moves),
             piece(P, Xo, Yo),

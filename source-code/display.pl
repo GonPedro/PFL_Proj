@@ -13,7 +13,7 @@ draw_board_header_names(Number) :-
         N1 is Number+1,
         draw_board_header_names(N1).
 
-% draw_board_header(+Number)
+% draw_board_header(+Size)
 % Draws beginning of the horizontal header of the game board.
 draw_board_header(Size) :- 
         write('      |'),
@@ -53,7 +53,7 @@ draw_values([], N, _) :-
         write('  |'), nl.
 
 % draw_values(+List, +Number, +Counter)
-% Draws the values ...
+% Draws the line containing a row of board values.
 draw_values([H | T], N, C) :- 
         write('|  '),
         (

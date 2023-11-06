@@ -1,4 +1,4 @@
-% get_gamemode(+Gm)
+% get_gamemode(-Gm)
 % Prompts the player to select a game mode and validates their input.
 get_gamemode(Gm) :-
             write('Please select the gamemode you would like to play:'), nl,
@@ -14,7 +14,7 @@ get_gamemode(Gm) :-
                 Gm = Sub
             ).
 
-% get_computer_level(+Bl)
+% get_computer_level(-Bl)
 % Prompts the player to select the computer level and validates their input.
 get_computer_level(Bl) :-
             write('Please select the computer level:'), nl,
@@ -28,7 +28,7 @@ get_computer_level(Bl) :-
                 Bl = Sub
             ).
 
-% get_movement_piece(+P, +Player)
+% get_movement_piece(-P, +Player)
 % Prompts the player to type in the piece they would like to move and validates their input.
 get_movement_piece(P, Player) :-
             write('Please type in the piece you would like to move (minimized):'), nl,
@@ -50,7 +50,7 @@ get_movement_piece(P, Player) :-
                 get_movement_piece(P, Player)
             ).
 
-% get_movement_x(+X)
+% get_movement_x(-X)
 % Prompts the player to input the new X coordinate for the selected piece and validates their input.
 get_movement_x(X) :-
             write('Please input the new X coordinate for the selected piece: '),
@@ -63,7 +63,7 @@ get_movement_x(X) :-
                 X = Sub
             ).
 
-% get_movement_y(+Y)
+% get_movement_y(-Y)
 % Prompts the player to input the new Y coordinate for the selected piece and validates their input.
 get_movement_y(Y) :-
             write('Please input the new Y coordinate for the selected piece: '),
