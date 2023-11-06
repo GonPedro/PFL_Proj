@@ -238,7 +238,11 @@ tirando proveito da <i>library(random)</i> para utilizar o predicado <i>random_m
             ).
 
 ## Conclusão
-Esta linguagem é uma merda
+<p align="justify">
+Apesar deste projeto ter sido uma corrida contra o tempo, consideramos que o jogo Shakti foi implementado com sucesso em Prolog. Apresenta 3 modos de jogo distintos, sendo estes <i>Jogador vs Jogador</i>, <i>Jogador vs Computador</i> e <i>Computador vs Computador</i>. Apesar do bot implementado apenas ter uma única dificuldade baseada na escolha aleatória de jogadas válidas, todo o código desenvolvido foi escrutinamente verificado e testado de modo a assegurar uma jogabilidade robusta e garantir a validade do estado de jogo a todo o momento.
+</br>
+Por fim, acreditamos ter adquirido uma forte compreensão do conceito deste novo paradigma de programação e, apesar de sabermos que somos capazes de melhor, estamos satisfeitos com os resultados obtidos.
+</p>
 
 
 ## Referências
