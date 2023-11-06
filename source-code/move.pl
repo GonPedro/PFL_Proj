@@ -1,13 +1,23 @@
 :- use_module(library(lists)).
 
+% base case for unpack_list
 unpack_list([], Dest, Ret, Ret) :- !.
+
+% unpack_list(+StartList, +Dest, -Ret)
+% Unpacks elements from a list and appends them to another list, creating a new list.
 unpack_list(StartList, Dest, Ret) :-
             unpack_list(StartList, Dest, Ret, Dest).
+
+% unpack_list(+StartList, +Dest, -Ret)
+% Unpacks elements from a list and appends them to another list, creating a new list.
 unpack_list([H | T], Dest, Ret, Acc) :-
             Dest1 = .(H, Acc),
             unpack_list(T, Dest, Ret, Dest1).
 
 
+
+% in_check_place(+P, +X, +Y, +Xoff, +Yoff)
+% Determines if a piece at a specific position puts the opponent's king in check.
 in_check_place(P, X, Y, Xoff, Yoff) :-
             piece(T, X, Y),
             T = 'X', !,
@@ -15,6 +25,8 @@ in_check_place(P, X, Y, Xoff, Yoff) :-
             X1 is X + Xoff,
             in_check_place(P, X1, Y1, Xoff, Yoff).
 
+% in_check_place(+P, +X, +Y, +Xoff, +Yoff)
+% Determines if a piece at a specific position puts the opponent's king in check.
 in_check_place(P, X, Y, Xoff, Yoff) :-
             piece(T, X, Y),
             (
@@ -27,14 +39,39 @@ in_check_place(P, X, Y, Xoff, Yoff) :-
             ).
 
 
+
+% in_check(+P, +X, +Y)
+% Determines if a piece at a specific position puts the opponent's king in check by checking various potential attack directions.
 in_check(P, X, Y) :-
         X1 is X - 1,
         X2 is X + 1,
         Y1 is Y - 1,
         Y2 is Y + 1,
-        (in_check_place(P, X, Y2, 0, 1) ; in_check_place(P, X, Y1, 0, -1) ; in_check_place(P, X1, Y, -1, 0) ; in_check_place(P, X2, Y , 1, 0) ; in_check_place(P, X1, Y2, -1, 1) ; in_check_place(P, X2, Y2, 1, 1) ; in_check_place(P, X1, Y1, -1, -1) ; in_check_place(P, X2, Y1, 1, -1)).
+        (
+            in_check_place(P, X, Y2, 0, 1)
+            ;
+            in_check_place(P, X, Y1, 0, -1)
+            ;
+            in_check_place(P, X1, Y, -1, 0)
+            ;
+            in_check_place(P, X2, Y , 1, 0)
+            ;
+            in_check_place(P, X1, Y2, -1, 1)
+            ;
+            in_check_place(P, X2, Y2, 1, 1)
+            ;
+            in_check_place(P, X1, Y1, -1, -1)
+            ;
+            in_check_place(P, X2, Y1, 1, -1)
+        ).
 
+
+
+% base case for check_mate
 check_mate([]).
+
+% check_mate(+Pieces)
+% Checks if any of the pieces in the given list represent the opponent's king, indicating a checkmate condition.
 check_mate([[P, X, Y] | T]) :-
             (
                 (P == 'K' ; P == 'Q') ->
@@ -189,7 +226,6 @@ valid_piece_mov(X, Y, Xp, Yp, Xoff, Yoff, P, C, Moves, Acc) :-
                         
                     
                     
-
 valid_piece_moves([T, X, Y], Acc) :-
             Y1 is Y + 1,
             Y2 is Y - 1,
@@ -217,7 +253,11 @@ valid_moves(Board, [H | T], Available_moves, Acc) :-
             valid_piece_moves(H, Acc1),
             unpack_list(Acc1, Acc, Acc2),
             valid_moves(Board, T, Available_moves, Acc2).
-    
+
+
+
+% move(+Board, +Move, +Valid_moves, -New_board)
+% Executes a move on the board and updates the board accordingly.
 move(Board, [P, X, Y], Valid_moves, Board1) :-
             member([P, X, Y], Valid_moves),
             piece(P, Xo, Yo),
