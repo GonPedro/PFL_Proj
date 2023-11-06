@@ -78,7 +78,7 @@ Dito isto, utilizamos o predicado <i>make_board(+Length, +Char, -Board)</i> para
   <b><i>Estado Inicial</i></b>
 </p>
 <p align="center" justify="center">
-<img width="500" alt="init_state" src="https://private-user-images.githubusercontent.com/93215985/280575074-477afb09-ff05-485f-9b4b-46faf7e1f883.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE2OTkyNDUyODgsIm5iZiI6MTY5OTI0NDk4OCwicGF0aCI6Ii85MzIxNTk4NS8yODA1NzUwNzQtNDc3YWZiMDktZmYwNS00ODVmLTliNGItNDZmYWY3ZTFmODgzLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFJV05KWUFYNENTVkVINTNBJTJGMjAyMzExMDYlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjMxMTA2VDA0Mjk0OFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTlhZDkyMWI3MmY2NGY5NjRmNTZiNjVlMzU3YjYwNTljYmI4ZTBkMzNjMzVjNzg4MDI2NTE5ZGM4ZjRjZmE5NzMmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.e7rLdEQNmiZ4J-7VnhWTlrmBgZZauSyg4ApT3g0j390"/>
+<img width="500" alt="init_state" src="https://github.com/GonPedro/PFL_Proj/assets/93215985/477afb09-ff05-485f-9b4b-46faf7e1f883"/>
 </p>
 
 <p align="center">
