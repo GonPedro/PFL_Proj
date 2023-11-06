@@ -49,11 +49,13 @@ Tanto as regras como o funcionamento do jogo foram consultadas nos seguintes web
 ## Lógica do Jogo
 ### Representação Interna do Estado do Jogo
 <p align="justify">
-O nosso tabuleiro usa a representação típica de uma lista de listas (linhas do tabuleiro) com diferentes células para as peças.</br>
+O nosso tabuleiro usa a representação típica de uma lista de listas (linhas do tabuleiro) com diferentes células para as peças.
+</br>
 Os jogadores são, também, uma lista de listas que contêm as peças desse jogador e as suas coordenadas. </br>
-Para além destas listas nós tiramos proveito do predicado dinâmico piece(Type, X, Y) para estabelecer a posição de tudo no nosso tabuleiro, sejam telhas vazias, telhas bloqueadas ou telhas com peças.
-Nós utilizamos os átomos 'P', 'T', 'C' e 'B' para representar os warriors, sendo 'C' e 'B' os warriors do Player 1 e 'T' e 'P' warriors do Player 2, e utilizamos ' ' e 'X' para representar telhas vazias e telhas bloqueadas respetivamente.</br>
-Dito isto, utilizamos o predicado make_board(+Length, +Char, -Board) para criar o tabuleiro inicial, create_player_1(-Player) e create_player_2(-Player) para criar o Player 1 e Player 2, create_blocked_list(-Blocked) para criar a lista de telhas bloqueadas no inicio do jogo e fazemos uso do predicado place_pieces(+Blocked, +Player1, +Player2) para posicionar tudo no tabuleiro.
+Para além destas listas nós tiramos proveito do predicado dinâmico <i>piece(Type, X, Y)</i> para estabelecer a posição de tudo no nosso tabuleiro, sejam telhas vazias, telhas bloqueadas ou telhas com peças.
+Nós utilizamos os átomos 'P', 'T', 'C' e 'B' para representar os warriors, sendo 'C' e 'B' os warriors do Player 1 e 'T' e 'P' warriors do Player 2, e utilizamos ' ' e 'X' para representar telhas vazias e telhas bloqueadas, respetivamente.
+</br>
+Dito isto, utilizamos o predicado <i>make_board(+Length, +Char, -Board)</i> para criar o tabuleiro inicial, <i>create_player_1(-Player)</i> e <i>create_player_2(-Player)</i> para criar o Player 1 e Player 2, <i>create_blocked_list(-Blocked)</i> para criar a lista de telhas bloqueadas no inicio do jogo e fazemos uso do predicado <i>place_pieces(+Blocked, +Player1, +Player2)</i> para posicionar tudo no tabuleiro.
             
             create_player_1(Player) :- Player = [['C', 2, 2], ['Q', 4, 2], ['B', 6, 2]].
             create_player_2(Player) :- Player = [['T', 2, 6], ['K', 4, 6], ['P', 6, 6]].
@@ -89,19 +91,22 @@ Dito isto, utilizamos o predicado make_board(+Length, +Char, -Board) para criar 
 
 ### Visualização do Estado do Jogo
 <p align="justify">
-Nós utilizamos o predicado draw_board(+Board) para desenhar o tabuleiro no ecrâ.
-Este predicado começa por desenhar o cabeçalho da tabela e, conseguinte, vai ler e desenhar o tabuleiro linha a linha consoante o conteúdo lido.
-Também criamos o predicado draw_player(+Player) que anuncia o jogador que vai jogar naquele turno.</br>
-Embora o nosso tabuleiro não tenha um tamanho dinâmico implementamos o predicado initial_state(+Size, -Board), que faz uso do predicado make_board(+Length, +Char, -Board) previamente falado para criar o nosso tabuleiro.
+Nós utilizamos o predicado <i>draw_board(+Board)</i> para desenhar o tabuleiro no ecrâ.
+Este predicado começa por desenhar o cabeçalho da tabela e, seguidamente, vai ler e desenhar o tabuleiro linha a linha, consoante o conteúdo lido.
+Também criámos o predicado <i>draw_player(+Player)</i> que anuncia o jogador que vai jogar no respetivo turno.
+</br>
+Embora o nosso tabuleiro não tenha um tamanho dinâmico, implementámos o predicado <i>initial_state(+Size, -Board)</i>, que faz uso do predicado <i>make_board(+Length, +Char, -Board)</i>, previamente falado, para criar o nosso tabuleiro.
 </p>
 
 ### Lista de Movimentos Válidos
 <p align="justify">
-Como foi referido na representação interna do estado do jogo, utilizamos o predicado dinâmico piece(Type, X, Y) para estabelecer a posição de todas as telhas do tabuleiro.
-Através deste predicado e das listas dos jogadores conseguimos verificar e validar todos os moves possiveis para todas as peças de um jogador.
-Com isto dito, criamos o predicado valid_moves(+Board, +Player, -Available_moves) onde iteramos pelo Player para descobrirmos todos os movimentos válidos naquele turno para aquele jogador. </br>
-Ao iterarmos pelo Player conseguimos ver as peças dele individualmente e as passa por um novo predicado valid_piece_moves(+[T, X, Y], -Acc) que pega nessa peça e verifica num espaço de 2 casas, nas 8 direções, todas as telhas para que ela se pode mexer.</br>
-Esta verificação faz uso de um predicado auxiliar valid_piece_mov(+X, +Y, +Xp, +Yp, +Xoff, +Yoff, +P, +C, -Moves, Acc) que averigua se ele pode ir para uma telha consoante as regras do jogo.
+Como foi referido na representação interna do estado do jogo, utilizamos o predicado dinâmico <i>piece(Type, X, Y)</i> para estabelecer a posição de todas as telhas do tabuleiro.
+Através deste predicado e das listas dos jogadores conseguimos verificar e validar todos os movimentos possiveis para todas as peças de um jogador.
+Dito isto, criámos o predicado <i>valid_moves(+Board, +Player, -Available_moves)</i>, onde iteramos pelo Player para descobrirmos todos os movimentos válidos naquele turno para esse mesmo Player.
+</br>
+Ao iterármos pelo Player conseguimos ver as peças dele individualmente e passá-las por um novo predicado <i>valid_piece_moves(+[T, X, Y], -Acc)</i> que pega em cada uma delas e verifica, num espaço de 2 casas nas 8 direções, todas as telhas para onde as mesmas se podem mexer.
+</br>
+Esta verificação faz uso de um predicado auxiliar <i>valid_piece_mov(+X, +Y, +Xp, +Yp, +Xoff, +Yoff, +P, +C, -Moves, Acc)</i> que averigua se a peça pode ir para uma telha, consoante as regras do jogo.
 
             valid_piece_moves([T, X, Y], Acc) :-
                     Y1 is Y + 1,
@@ -128,14 +133,14 @@ Esta verificação faz uso de um predicado auxiliar valid_piece_mov(+X, +Y, +Xp,
 ### Validação e Execução de Movimento
 <p align="justify">
 
-Tendo a lista de movimentos válidos criada a validação e execução de movimento torna-se bastante simples.
-Começamos por criar 3 predicados diferentes para pedir ao user para inserir o move que gostaria de fazer, sendo estes:
+Tendo a lista de movimentos válidos criada, a validação e execução do movimento das peças torna-se bastante simples.
+Começámos por criar 3 predicados diferentes para pedir ao jogador para inserir a jogada que gostaria de fazer, sendo estes:
 
-- get_movement_piece(-P, +Player): Pede ao user para inserir a peça que pretende mexer e verifica se essa peça é valida com a ajuda do Player;
-- get_movement_x(X): Pede ao user para inserir a nova coordenada X da peça que pretende mexer;
-- get_movement_y(Y): Pede ao user para inserir a nova coordenada Y da peça que pretende mexer.
+- <i>get_movement_piece(-P, +Player)</i>: Pede ao jogador para inserir a peça que pretende mexer e verifica se essa peça é valida com a ajuda do Player;
+- <i>get_movement_x(X)</i>: Pede ao jogador para inserir a nova coordenada X da peça que pretende mover;
+- <i>get_movement_y(Y)</i>: Pede ao jogador para inserir a nova coordenada Y da peça que pretende mover.
 
-Criamos o predicado Move(+Board, +Move, +Valid_moves, -New_Board) que tira proveito do predicado member(+Element, +List) para verificar se o movimento que o jogador fez está dentro da lista de Valid_moves. Se o move tiver dentro da lista de movimentos válidos ele procede a retirar telhas da board se for necessário, seguido da criação do New_Board através do predicado update_board(-UpdatedBoard, +Y, ?Acc), que faz uso do predicado piece(Type, X, Y) para descobrir o que está no tabuleiro naquelas coordenadas e da atualização do Player através do predicado update_player(+Pieces, -Player).
+Criámos o predicado <i>move(+Board, +Move, +Valid_moves, -New_Board)</i> que tira proveito do predicado <i>member(+Element, +List)</i> para verificar se o movimento que o jogador fez está dentro da lista de valid_moves. Se o movimento estiver dentro da lista de movimentos válidos, ele procede a retirar telhas da board, caso necessário, seguido da criação do New_Board através do predicado <i>update_board(-UpdatedBoard, +Y, ?Acc)</i>, que faz uso do predicado <i>piece(Type, X, Y)</i> para descobrir o que está no tabuleiro naquelas coordenadas e da atualização do Player através do predicado <i>update_player(+Pieces, -Player)</i>.
 
             update_player([H | T], Player, Acc) :-
                         update_player_piece(H, Acc1),
@@ -169,7 +174,7 @@ Criamos o predicado Move(+Board, +Move, +Valid_moves, -New_Board) que tira prove
                             ;
                             (...)
 
-Com isto, fizemos, também, o predicado process_player_mov(+Board, +Curr_player, +Opp_player, +Valid, +Bl, +PlayerI) que utiliza os 3 predicados para pedir o movimento ao user e tenta executar esse movimento correndo o predicado Move/4. Se o movimento suceder ele passa para o proximo turno, senão ele escreve "Invalid Move!" no ecrã e pede ao user para escrever o movimento outra vez.
+Com isto, criámos, também, o predicado <i>process_player_mov(+Board, +Curr_player, +Opp_player, +Valid, +Bl, +PlayerI)</i>, que utiliza os 3 predicados para pedir o movimento ao jogador e tenta realizar esse movimento executando o predicado <i>Move/4</i>. Se o movimento for bem sucedido ele passa para o proximo turno, caso contrário imprime "Invalid Move!" no ecrã e pede ao jogador para selecionar um novo movimento.
 
             process_player_mov(Board, Curr_player, Opp_player, Valid, Bl, PlayerID) :-
                         get_movement_piece(P, PlayerID),
