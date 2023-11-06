@@ -7,6 +7,5 @@ choose_move(Valid, Level, Move) :-
                 Level == 1 ->
                 random_member(Move, Valid)
                 ;
-                % Implementar Heuristica Aqui
                 fail
             ).
