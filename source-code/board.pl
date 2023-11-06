@@ -4,13 +4,15 @@
 :- dynamic piece/3.
 
 % make_row(+Length, +Char, -Row)
-% Generates a row of characters with the specified length and character.
+% Generates a row of characters with the specified length and character. (First Call)
 make_row(Length, Char, Row) :- 
             make_row(Length, Char, Row, []).
 
 % base case for make_row
 make_row(0, _, Row, Row).
 
+% make_row(+Length, +Char, -Row, Sub)
+% Generates a row of characters with the specified length and character. (Recursive call)
 make_row(Length, Char, Row, Sub) :- 
             Length > 0,
             Length1 is Length - 1,
@@ -20,13 +22,15 @@ make_row(Length, Char, Row, Sub) :-
 
 
 % make_cover_row(+Length, +Char, -Row)
-% Generates a row of characters with the specified length and character for a covered row.
+% Generates a row of characters with the specified length and character for a covered row. (First Call)
 make_cover_row(Length, Char, Row) :- 
             make_cover_row(Length, Char, Row, []).
 
 % base case for make_cover_row
 make_cover_row(0, _, Row, Row).
 
+% make_cover_row(+Length, +Char, -Row, Sub)
+% Generates a row of characters with the specified length and character for a covered row. (Recursive Call)
 make_cover_row(Length, Char, Row, Sub) :- 
             Length > 0,
             Length1 is Length - 1,
@@ -40,13 +44,15 @@ make_cover_row(Length, Char, Row, Sub) :-
 
 
 % make_black_row(+Length, +Char, -Row)
-% Generates a row of characters with the specified length and character for a black row.
+% Generates a row of characters with the specified length and character for a black row. (First Call)
 make_black_row(Length, Char, Row) :-
             make_black_row(Length, Char, Row, []).
 
 % base case for make_black_row
 make_black_row(0, _, Row, Row).
 
+% make_black_row(+Length, +Char, -Row, Sub)
+% Generates a row of characters with the specified length and character for a black row. (Recursive Call)
 make_black_row(Length, Char, Row, Sub) :- 
             Length > 0,
             Length1 is Length - 1,
@@ -64,13 +70,15 @@ make_black_row(Length, Char, Row, Sub) :-
 
 
 % make_white_row(+Length, +Char, -Row)
-% Generates a row of characters with the specified length and character for a white row.
+% Generates a row of characters with the specified length and character for a white row. (First Call)
 make_white_row(Length, Char, Row) :-
             make_white_row(Length, Char, Row, []).
 
 % base case for make_white_row
 make_white_row(0, _, Row, Row).
 
+% make_white_row(+Length, +Char, -Row, Sub)
+% Generates a row of characters with the specified length and character for a white row. (Recursive Call)
 make_white_row(Length, Char, Row, Sub) :-
             Length > 0,
             Length1 is Length - 1,
@@ -108,6 +116,8 @@ place_blocked_piece([X,Y]) :- assert(piece('X', X, Y)).
 % base case for place_blocked_pieces
 place_blocked_pieces([]).
 
+% place_blocked_pieces(+List_of_Blocked_Positions)
+% Does recursive calls to place_blocked_piece
 place_blocked_pieces([H|T]) :-
             place_blocked_piece(H),
             place_blocked_pieces(T).
@@ -121,6 +131,8 @@ place_player_piece([T, X, Y]) :- assert(piece(T, X, Y)).
 % base case for place_player_pieces
 place_player_pieces([]).
 
+% place_player_pieces(+List_of_Player_Pieces)
+% Does recursive calls to place_player_piece
 place_player_pieces([H | T]) :-
             place_player_piece(H),
             place_player_pieces(T).
@@ -179,13 +191,15 @@ place_initial_empty_pieces :-
 
 
 
-% update_board_row(+Y, +X, -Row, ?Acc)
-% Updates a row of the game board with a new piece at the specified position.
+% update_board_row(+Y, +X, -Row)
+% Updates a row of the game board with a new piece at the specified position. (First Call)
 update_board_row(Y, X, Row) :- update_board_row(Y, X, Row, []).
 
 % base case for update_board_row
 update_board_row(_, 0, Row, Row).
 
+% update_board_row(+Y, +X, -Row, Acc)
+% Updates a row of the game board with a new piece at the specified position. (Recursive Call)
 update_board_row(Y, X, Row, Acc):-
             piece(T, X, Y),
             Acc1 = .(T, Acc),
@@ -194,13 +208,15 @@ update_board_row(Y, X, Row, Acc):-
 
 
 
-% update_board(-UpdatedBoard, +Y, ?Acc)
-% Updates a specific row in the game board with a new row.
+% update_board(-UpdatedBoard, +Y)
+% Creates a new updated board. (First Call)
 update_board(Board, Y) :- update_board(Board, Y, []).
 
 % base case for update_board
 update_board(Board, 8, Board).
 
+% update_board(-UpdatedBoard, +Y, Acc)
+% Creates a new updated board. (Recursive Call)
 update_board(Board, Y, Acc) :- 
             Y < 8,
             update_board_row(Y, 7, Row),
@@ -216,13 +232,15 @@ update_player_piece([P, _, _], Acc) :-
             piece(P, X, Y),
             Acc = [P, X, Y].
 
-% update_player(+Pieces, -Player, -UpdatedPlayer)
-% Updates the game board configuration of the player-controlled pieces.
+% update_player(+Pieces, -Player)
+% Updates the game board configuration of the player-controlled pieces. (First Call)
 update_player([H | T], Player) :- update_player([H | T], Player, []).
 
 % base case for update_player
 update_player([], Player, Player).
 
+% update_player(+Pieces, -Player, Acc)
+% Updates the game board configuration of the player-controlled pieces. (Recursive Call)
 update_player([H | T], Player, Acc) :-
             update_player_piece(H, Acc1),
             Acc2 = .(Acc1, Acc),
@@ -231,12 +249,14 @@ update_player([H | T], Player, Acc) :-
 
 
 % make_board(+Length, +Char, -Board)
-% Generates a game board with the specified dimensions and initial character.
+% Generates a game board with the specified dimensions. (First Call)
 make_board(Length, Char, Board) :- make_board(Length, 'X', Board, []).
 
 % base case for make_board
 make_board(0, _, Board, Board).
 
+% make_board(+Length, +Char, -Board, Sub)
+% Generates a game board with the specified dimensions. (Recursive Call)
 make_board(Length, Char, Board, Sub) :- 
     Length > 0,
     Length1 is Length - 1,
@@ -260,6 +280,6 @@ make_board(Length, Char, Board, Sub) :-
 
 
 
-% initial_state(-Length)
+% initial_state(+Length, -Board)
 % Generates the initial state of the game board.
 initial_state(Length, Board) :- make_board(Length, 'X', Board).
