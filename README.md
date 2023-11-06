@@ -106,7 +106,7 @@ Com isto, também fizemos o predicado process_player_mov(+Board, +Curr_player, +
 
 ### Fim do Jogo
 <p align="justify">
-Durante o decorrer do jogo é executado constantemente o predicado check_mate(+Valid_Moves). Este predicado é responsável por percorrer a lista de movimentos válidos até encontrar pelo menos um movimento que inclua o Rei. Caso tal não se verifique, então significa que o jogador detentor do turno para jogar se encontra em checkmate. Neste caso, o predicado check_mate(+Valid_Moves) irá continuar a sua execução, retirando todas as peças do tabuleiro (através do predicado retractall()) e chamando o predicado game_over(+Board, +Winner) que declara o vencedor do jogo e o dá como terminado.
+Durante o decorrer do jogo é executado constantemente o predicado <i>check_mate(+Valid_Moves)</i>. Este predicado é responsável por percorrer a lista de movimentos válidos até encontrar pelo menos um movimento que inclua o Rei. Caso tal não se verifique, então significa que o jogador detentor do turno para jogar se encontra em checkmate. Neste caso, o predicado <i>check_mate(+Valid_Moves)</i> irá continuar a sua execução, retirando todas as peças do tabuleiro (através do predicado <i>retractall()</i>) e chamando o predicado <i>game_over(+Board, +Winner)</i> que declara o vencedor do jogo e o dá como terminado.
 </p>
 
             valid_moves(Board, Curr_player, Valid),
@@ -129,9 +129,9 @@ Devido à maneira como implementámos o jogo e por falta de tempo, não nos foi 
 
 ### Jogadas de Computador
 <p align="justify">
-Mais uma vez, por má gestão de tempo não conseguimos implementar o nivel 2 do computador o que significa que o computador vai estar sempre a fazer movimentos á sorte.
-Criamos o predicado choose_move(+Valid, +Level, -Move) para escolher o movimento do computador consoante o seu nivel.
-Tendo só o nivel 1 feito, tiramos proveito da libraria random para utilizar o predicado random_member(-Move, +Valid_Moves) para escolher um movimento á sorte da lista de movimentos válidos.
+Uma vez mais devido à falta de tempo, não nos foi possível implementar o nivel 2 de dificuldade para o bot, o que significa que o seu poder de decisão será sempre baseado na escolha aleatória dos movimentos válidos disponíveis.
+Para tal criámos o predicado <i>choose_move(+Valid, +Level, -Move)</i> para escolher o movimento do "computador",
+tirando proveito da <i>library(random)</i> para utilizar o predicado <i>random_member(-Move, +Valid_Moves)</i> e, assim, poder escolher um movimento aleatório da lista de movimentos válidos.
 </p>
 
             choose_move(Valid, Level, Move) :-
