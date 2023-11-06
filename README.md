@@ -57,9 +57,15 @@ Nós utilizamos os átomos 'P', 'T', 'C' e 'B' para representar os warriors, sen
 </br>
 Dito isto, utilizamos o predicado <i>make_board(+Length, +Char, -Board)</i> para criar o tabuleiro inicial, <i>create_player_1(-Player)</i> e <i>create_player_2(-Player)</i> para criar o Player 1 e Player 2, <i>create_blocked_list(-Blocked)</i> para criar a lista de telhas bloqueadas no inicio do jogo e fazemos uso do predicado <i>place_pieces(+Blocked, +Player1, +Player2)</i> para posicionar tudo no tabuleiro.
             
-            create_player_1(Player) :- Player = [['C', 2, 2], ['Q', 4, 2], ['B', 6, 2]].
-            create_player_2(Player) :- Player = [['T', 2, 6], ['K', 4, 6], ['P', 6, 6]].
-            create_blocked_list(Blocked) :- Blocked = [[1, 1], [7, 1], [1, 7], [7, 7]].
+            create_player_1(Player) :-
+                  Player = [['C', 2, 2], ['Q', 4, 2], ['B', 6, 2]].
+                  
+            create_player_2(Player) :-
+                  Player = [['T', 2, 6], ['K', 4, 6], ['P', 6, 6]].
+                  
+            create_blocked_list(Blocked) :-
+                  Blocked = [[1, 1], [7, 1], [1, 7], [7, 7]].
+            
             place_pieces(Blocked, Player1, Player2) :-
                   place_blocked_pieces(Blocked),
                   place_player_pieces(Player1),
