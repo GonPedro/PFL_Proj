@@ -3,13 +3,13 @@
 % base case for unpack_list
 unpack_list([], Dest, Ret, Ret) :- !.
 
-% unpack_list(+StartList, +Dest, -Ret)
-% Unpacks elements from a list and appends them to another list, creating a new list.
+% unpack_list(+StartList, -Dest, +Ret)
+% Unpacks elements from a list and appends them to another list, creating a new list. (First call)
 unpack_list(StartList, Dest, Ret) :-
             unpack_list(StartList, Dest, Ret, Dest).
 
-% unpack_list(+StartList, +Dest, -Ret)
-% Unpacks elements from a list and appends them to another list, creating a new list.
+% unpack_list(+StartList, -Dest, +Ret)
+% Unpacks elements from a list and appends them to another list, creating a new list. (Recursive call)
 unpack_list([H | T], Dest, Ret, Acc) :-
             Dest1 = .(H, Acc),
             unpack_list(T, Dest, Ret, Dest1).
@@ -26,7 +26,7 @@ in_check_place(P, X, Y, Xoff, Yoff) :-
             in_check_place(P, X1, Y1, Xoff, Yoff).
 
 % in_check_place(+P, +X, +Y, +Xoff, +Yoff)
-% Determines if a piece at a specific position puts the opponent's king in check.
+% Base case for in_check_place.
 in_check_place(P, X, Y, Xoff, Yoff) :-
             piece(T, X, Y),
             (
@@ -41,7 +41,7 @@ in_check_place(P, X, Y, Xoff, Yoff) :-
 
 
 % in_check(+P, +X, +Y)
-% Determines if a piece at a specific position puts the opponent's king in check by checking various potential attack directions.
+% Determines if a piece at a specific position is in check by checking various potential attack directions.
 in_check(P, X, Y) :-
         X1 is X - 1,
         X2 is X + 1,
@@ -71,7 +71,7 @@ in_check(P, X, Y) :-
 check_mate([]).
 
 % check_mate(+Pieces)
-% Checks if any of the pieces in the given list represent the opponent's king, indicating a checkmate condition.
+% Checks if any of the pieces in the given list represent the player's king, indicating if he has been checkmated.
 check_mate([[P, X, Y] | T]) :-
             (
                 (P == 'K' ; P == 'Q') ->
