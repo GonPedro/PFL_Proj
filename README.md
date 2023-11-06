@@ -169,7 +169,7 @@ Criamos o predicado Move(+Board, +Move, +Valid_moves, -New_Board) que tira prove
                             ;
                             (...)
 
-Com isto, também fizemos o predicado process_player_mov(+Board, +Curr_player, +Opp_player, +Valid, +Bl, +PlayerI) que utiliza os 3 predicados para pedir o movimento ao user e tenta executar esse movimento correndo o predicado Move/4. Se o movimento suceder ele passa para o proximo turno, senão ele escreve "Invalid Move!" no ecrã e pede ao user para escrever o movimento outra vez.
+Com isto, fizemos, também, o predicado process_player_mov(+Board, +Curr_player, +Opp_player, +Valid, +Bl, +PlayerI) que utiliza os 3 predicados para pedir o movimento ao user e tenta executar esse movimento correndo o predicado Move/4. Se o movimento suceder ele passa para o proximo turno, senão ele escreve "Invalid Move!" no ecrã e pede ao user para escrever o movimento outra vez.
 
             process_player_mov(Board, Curr_player, Opp_player, Valid, Bl, PlayerID) :-
                         get_movement_piece(P, PlayerID),
