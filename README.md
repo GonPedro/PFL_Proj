@@ -58,21 +58,21 @@ Para além destas listas nós tiramos proveito do predicado dinâmico piece(Type
   <b><i>Estado Inicial</i></b>
 </p>
 <p align="center" justify="center">
-<img width="300" alt="init_state" src="https://github.com/GonPedro/PFL_Proj/assets/93215985/477afb09-ff05-485f-9b4b-46faf7e1f883"/>
+<img width="500" alt="init_state" src="https://github.com/GonPedro/PFL_Proj/assets/93215985/477afb09-ff05-485f-9b4b-46faf7e1f883"/>
 </p>
 
 <p align="center">
   <b><i>Estado Intermédio</i></b>
 </p>
 <p align="center" justify="center">
-<img width="300" alt="init_state" src="https://github.com/GonPedro/PFL_Proj/assets/93215985/3ae33337-e53d-4650-9d96-5b2149a010e3"/>
+<img width="500" alt="init_state" src="https://github.com/GonPedro/PFL_Proj/assets/93215985/3ae33337-e53d-4650-9d96-5b2149a010e3"/>
 </p>
 
 <p align="center">
   <b><i>Estado Final</i></b>
 </p>
 <p align="center" justify="center">
-<img width="300" alt="init_state" src="https://github.com/GonPedro/PFL_Proj/assets/93215985/ef2909e9-ccbe-4422-992b-dc77171b4fda"/>
+<img width="500" alt="init_state" src="https://github.com/GonPedro/PFL_Proj/assets/93215985/ef2909e9-ccbe-4422-992b-dc77171b4fda"/>
 </p>
 
 ### Visualização do Estado do Jogo
