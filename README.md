@@ -56,7 +56,7 @@ Para além destas listas nós tiramos proveito do predicado dinâmico <i>piece(T
 Nós utilizamos os átomos 'P', 'T', 'C' e 'B' para representar os warriors, sendo 'C' e 'B' os warriors do Player 1 e 'T' e 'P' warriors do Player 2, e utilizamos ' ' e 'X' para representar telhas vazias e telhas bloqueadas, respetivamente.
 </br>
 Dito isto, utilizamos o predicado <i>make_board(+Length, +Char, -Board)</i> para criar o tabuleiro inicial, <i>create_player_1(-Player)</i> e <i>create_player_2(-Player)</i> para criar o Player 1 e Player 2, <i>create_blocked_list(-Blocked)</i> para criar a lista de telhas bloqueadas no inicio do jogo e fazemos uso do predicado <i>place_pieces(+Blocked, +Player1, +Player2)</i> para posicionar tudo no tabuleiro.
-            
+
             create_player_1(Player) :-
                   Player = [['C', 2, 2], ['Q', 4, 2], ['B', 6, 2]].
                   
