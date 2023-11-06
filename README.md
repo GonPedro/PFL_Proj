@@ -11,7 +11,7 @@ Grupo Shakti_1:
 No caso de não possuir o software Sicstus Prolog 4.8, clique [aqui](https://sicstus.sics.se/download4.html) para download e instruções de instalação.
 
 <p align="justify">
-Para instalar e correr o jogo Shakti é necessário descarregar o ficheiro <b>PFL_TP1_T14_Shakti_1.zip</b> e, posteriormente, descompactá-lo. Uma vez descompactado, basta aceder ao diretório <b>source-code</b> e consultar o ficheiro <b>main.pl</b> (pela UI do Sicstus Prolog 4.8 ou através da linha de comandos). O jogo é iniciado com o predicado <b>play/0</b>, sendo suportado por ambientes Windows e Linux.
+Para instalar e correr o jogo Shakti é necessário descarregar o ficheiro <b>PFL_TP1_T14_Shakti_1.zip</b> e, posteriormente, descompactá-lo. Uma vez descompactado, basta aceder ao diretório <b>src</b> e consultar o ficheiro <b>main.pl</b> (pela UI do Sicstus Prolog 4.8 ou através da linha de comandos). O jogo é iniciado com o predicado <b>play/0</b>, sendo suportado por ambientes Windows e Linux.
 </p>
 
 ## Descrição do Jogo
@@ -49,10 +49,30 @@ Tanto as regras como o funcionamento do jogo foram consultadas nos seguintes web
 ## Lógica do Jogo
 ### Representação Interna do Estado do Jogo
 <p align="justify">
-O nosso tabuleiro usa a representação tipica de uma lista de listas (linhas do tabuleiro) com diferentes átomos para as peças.
+O nosso tabuleiro usa a representação tipica de uma lista de listas (linhas do tabuleiro) com diferentes células para as peças.
 Os jogadores são, também, lista de listas que contêm as peças desse jogador e as suas coordenadas.
 Para além destas listas nós tiramos proveito do predicado dinâmico piece(Type, X, Y) para estabelecer a posição de tudo no nosso tabuleiro, sejam telhas vazias, telhas bloqueadas e telhas com peças.
-(Podemos incluir screenshots aqui do board secalhar, tanto no inicio como no fim (do jogo) maybe)
+</p>
+
+<p align="center">
+  <b><i>Estado Inicial</i></b>
+</p>
+<p align="center" justify="center">
+<img width="300" alt="init_state" src="https://github.com/GonPedro/PFL_Proj/assets/93215985/477afb09-ff05-485f-9b4b-46faf7e1f883"/>
+</p>
+
+<p align="center">
+  <b><i>Estado Intermédio</i></b>
+</p>
+<p align="center" justify="center">
+<img width="300" alt="init_state" src="https://github.com/GonPedro/PFL_Proj/assets/93215985/3ae33337-e53d-4650-9d96-5b2149a010e3"/>
+</p>
+
+<p align="center">
+  <b><i>Estado Final</i></b>
+</p>
+<p align="center" justify="center">
+<img width="300" alt="init_state" src="https://github.com/GonPedro/PFL_Proj/assets/93215985/ef2909e9-ccbe-4422-992b-dc77171b4fda"/>
 </p>
 
 ### Visualização do Estado do Jogo
@@ -86,12 +106,25 @@ Com isto, também fizemos o predicado process_player_mov(+Board, +Curr_player, +
 
 ### Fim do Jogo
 <p align="justify">
-Durante o decorrer do jogo ele está sempre a correr o predicado check_mate(+Valid_Moves) (percorre a lista de movimentos válidos até encontrar um movimento do rei, senão encontrar então está em check_mate) para verificar se o player está em check mate, se estiver em check mate então ele tira todas as peças do tabuleiro, fazendo uso do predicado retractall(), e chama o predicado game_over(+Board, +Winner) que declara o vencedor do jogo e acaba com ele.
+Durante o decorrer do jogo é executado constantemente o predicado check_mate(+Valid_Moves). Este predicado é responsável por percorrer a lista de movimentos válidos até encontrar pelo menos um movimento que inclua o Rei. Caso tal não se verifique, então significa que o jogador detentor do turno para jogar se encontra em checkmate. Neste caso, o predicado check_mate(+Valid_Moves) irá continuar a sua execução, retirando todas as peças do tabuleiro (através do predicado retractall()) e chamando o predicado game_over(+Board, +Winner) que declara o vencedor do jogo e o dá como terminado.
 </p>
+
+            valid_moves(Board, Curr_player, Valid),
+            (
+                check_mate(Valid) ->
+                F1 is Player mod 2,
+                Winner is F1 + 1,
+                game_over(Board, Winner),
+                retractall(piece(_,_,_))
+                ;
+                write('Here are your available moves:'), nl,
+                draw_available_moves(Valid),
+                process_player_mov(Board, Curr_player, Opp_player, Valid, 0, PlayerID)
+            ).
 
 ### Avaliação do Estado do Jogo
 <p align="justify">
-Por má gestão de tempo, não conseguimos criar um predicado para avaliar o estado do jogo.
+Devido à maneira como implementámos o jogo e por falta de tempo, não nos foi possível desenvolver um predicado que tornasse possível a avaliação do estado do jogo.
 </p>
 
 ### Jogadas de Computador
@@ -100,6 +133,14 @@ Mais uma vez, por má gestão de tempo não conseguimos implementar o nivel 2 do
 Criamos o predicado choose_move(+Valid, +Level, -Move) para escolher o movimento do computador consoante o seu nivel.
 Tendo só o nivel 1 feito, tiramos proveito da libraria random para utilizar o predicado random_member(-Move, +Valid_Moves) para escolher um movimento á sorte da lista de movimentos válidos.
 </p>
+
+            choose_move(Valid, Level, Move) :-
+            (
+                Level == 1 ->
+                random_member(Move, Valid)
+                ;
+                fail
+            ).
 
 ## Conclusão
 Esta linguagem é uma merda
